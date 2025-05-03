@@ -219,19 +219,15 @@
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
+            overflow: hidden;
+            contain: strict;
         }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
             50% { border-color: #00D4FF; }
             100% { border-color: #FF6200; }
         }
-        .id-card::before {
-            content: none;
-        }
-        .id-card.download-mode::before {
-            content: none;
-        }
-        .id-card::after {
+        .id-card::before, .id-card.download-mode::before, .id-card::after {
             content: none;
             display: none;
         }
@@ -246,6 +242,7 @@
             flex-direction: column;
             justify-content: space-between;
             overflow: hidden;
+            min-width: 0;
         }
         .id-card .right-column {
             flex: 1;
@@ -254,6 +251,7 @@
             align-items: center;
             gap: 10px;
             overflow: hidden;
+            min-width: 0;
         }
         .id-card .top-section {
             display: flex;
@@ -266,6 +264,7 @@
             display: flex;
             flex-direction: column;
             max-width: 100%;
+            box-sizing: border-box;
         }
         .id-card .name {
             font-size: 1.125rem;
@@ -273,9 +272,11 @@
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200, 0 0 15px #00D4FF;
             margin: 0;
-            overflow-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            hyphens: auto;
             max-width: 100%;
+            text-overflow: clip;
+            box-sizing: border-box;
             z-index: 2;
         }
         .id-card .handle {
@@ -283,22 +284,27 @@
             color: #00D4FF;
             text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
             margin: 5px 0 0 0;
-            overflow-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            hyphens: auto;
             max-width: 100%;
+            text-overflow: clip;
+            box-sizing: border-box;
             z-index: 2;
         }
         .id-card .id-number {
             font-size: 0.875rem;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
-            z-index: 2;
-            overflow-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            hyphens: auto;
             max-width: 100%;
+            text-overflow: clip;
+            box-sizing: border-box;
+            z-index: 2;
         }
         .id-card .details {
             max-width: 100%;
+            box-sizing: border-box;
         }
         .id-card .details p {
             margin: 5px 0;
@@ -309,9 +315,11 @@
             border: 1px solid white;
             padding: 3px 5px;
             border-radius: 4px;
-            overflow-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            hyphens: auto;
             max-width: 100%;
+            text-overflow: clip;
+            box-sizing: border-box;
         }
         .id-card .details p span {
             font-weight: 700;
@@ -394,8 +402,9 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 150px;
-            overflow-wrap: break-word;
-            word-break: break-all;
+            overflow-wrap: anywhere;
+            hyphens: auto;
+            box-sizing: border-box;
         }
         .preview-container {
             width: 200px;
@@ -555,17 +564,24 @@
             color: #e55b00;
         }
         @media (max-width: 480px) and (orientation: portrait) {
+            .id-card {
+                overflow: hidden;
+                contain: strict;
+            }
             .id-card .left-column, .id-card .right-column {
                 overflow: hidden;
+                min-width: 0;
             }
             .id-card .name, .id-card .handle, .id-card .id-number, .id-card .details p, .id-card .logo span {
-                overflow-wrap: break-word;
-                word-break: break-all;
+                overflow-wrap: anywhere;
+                hyphens: auto;
                 max-width: 95%;
-                text-overflow: ellipsis;
+                text-overflow: clip;
+                box-sizing: border-box;
             }
             .id-card .name-handle, .id-card .details {
                 max-width: 95%;
+                box-sizing: border-box;
             }
             .form-container, .preview-container {
                 width: 100%;
@@ -885,7 +901,7 @@
                     updateShareableLink(name, xHandle, memberSince, role);
                 } else {
                     alert('Error: Modal element not found.');
- Seeds                 }
+                }
             } catch (error) {
                 console.error('Error generating ID card:', error);
                 alert('An error occurred while generating the ID card: ' + error.message);
