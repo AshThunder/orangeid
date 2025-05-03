@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Dynasty ID Card Generator</title>
+    <title>Oorange Dynasty ID Card Generator</title>
     <link rel="preload" href="sign.jpeg" as="image">
     <link rel="preload" href="signicon.jpeg" as="image">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
@@ -204,8 +204,8 @@
             color: #e55b00;
         }
         .id-card {
-            width: min(400px, 90vw);
-            height: min(260px, 58vw);
+            width: min(400px, 95vw);
+            aspect-ratio: 400 / 260;
             border: 3px solid #FF6200;
             background: url('sign.jpeg');
             background-size: cover;
@@ -215,7 +215,7 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            padding: 15px;
+            padding: clamp(8px, 2vw, 10px);
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
@@ -225,13 +225,7 @@
             50% { border-color: #00D4FF; }
             100% { border-color: #FF6200; }
         }
-        .id-card::before {
-            content: none;
-        }
-        .id-card.download-mode::before {
-            content: none;
-        }
-        .id-card::after {
+        .id-card::before, .id-card.download-mode::before, .id-card::after {
             content: none;
             display: none;
         }
@@ -239,63 +233,69 @@
             display: flex;
             flex: 1;
             z-index: 2;
+            gap: clamp(5px, 1vw, 8px);
         }
         .id-card .left-column {
             flex: 2;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            max-width: 60%;
         }
         .id-card .right-column {
             flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            justify-content: space-between;
+            gap: clamp(5px, 1vw, 8px);
         }
         .id-card .top-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: clamp(5px, 1vw, 8px);
             z-index: 2;
         }
         .id-card .name-handle {
             display: flex;
             flex-direction: column;
+            max-width: 70%;
         }
         .id-card .name {
-            font-size: 1.125rem;
+            font-size: clamp(0.75rem, 2.5vw, 0.9rem);
             font-weight: 700;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200, 0 0 15px #00D4FF;
             margin: 0;
-            word-wrap: break-word;
+            overflow-wrap: break-word;
             z-index: 2;
         }
         .id-card .handle {
-            font-size: 0.875rem;
+            font-size: clamp(0.625rem, 2vw, 0.75rem);
             color: #00D4FF;
             text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
-            margin: 5px 0 0 0;
-            word-wrap: break-word;
+            margin: clamp(2px, 0.5vw, 4px) 0 0 0;
+            overflow-wrap: break-word;
             z-index: 2;
         }
         .id-card .id-number {
-            font-size: 0.875rem;
+            font-size: clamp(0.625rem, 2vw, 0.75rem);
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
             z-index: 2;
+            text-align: right;
         }
         .id-card .details p {
-            margin: 5px 0;
-            font-size: 0.75rem;
+            margin: clamp(2px, 0.5vw, 4px) 0;
+            font-size: clamp(0.5rem, 1.8vw, 0.625rem);
             color: #e0e0e0;
             text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
             z-index: 2;
             border: 1px solid white;
-            padding: 3px 5px;
+            padding: clamp(2px, 0.5vw, 3px) clamp(3px, 0.8vw, 4px);
             border-radius: 4px;
+            overflow-wrap: break-word;
         }
         .id-card .details p span {
             font-weight: 700;
@@ -303,21 +303,21 @@
         }
         .id-card .details p span.forever-signed {
             color: #ffffff;
-            -webkit-text-stroke: 1px #FF6200;
+            -webkit-text-stroke: 0.5px #FF6200;
             text-shadow: none;
         }
         .id-card .photo {
-            width: 100px;
-            height: 120px;
-            border-radius: 10px;
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(72px, 18vw, 96px);
+            border-radius: 8px;
             background: rgba(255, 255, 255, 0.2);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: clamp(8px, 2vw, 10px);
             color: #00D4FF;
             border: 2px solid #000000;
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.5);
+            box-shadow: 0 0 10px rgba(255, 98, 0, 0.5);
             z-index: 2;
             transition: transform 0.3s, box-shadow 0.3s;
         }
@@ -331,18 +331,18 @@
             object-fit: cover;
         }
         .id-card .barcode {
-            width: 100px;
-            height: 60px;
-            filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.7));
+            width: clamp(60px, 15vw, 80px);
+            height: clamp(36px, 9vw, 48px);
+            filter: drop-shadow(0 0 8px rgba(0, 212, 255, 0.7));
             z-index: 2;
             transition: transform 0.3s, filter 0.3s;
         }
         .id-card .barcode:hover {
             transform: scale(1.05);
-            filter: drop-shadow(0 0 15px #00D4FF);
+            filter: drop-shadow(0 0 10px #00D4FF);
         }
         .id-card .barcode text {
-            font-size: 12px;
+            font-size: clamp(8px, 2vw, 10px);
             fill: #e0e0e0;
             text-shadow: 0 0 5px #00D4FF;
         }
@@ -350,7 +350,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 10px;
+            margin-top: clamp(5px, 1vw, 8px);
             z-index: 2;
             overflow: hidden;
             width: 100%;
@@ -363,24 +363,24 @@
             flex-shrink: 1;
         }
         .id-card .logo img {
-            width: 30px;
-            height: 30px;
-            margin-right: 8px;
-            filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
+            width: clamp(20px, 5vw, 25px);
+            height: clamp(20px, 5vw, 25px);
+            margin-right: clamp(5px, 1vw, 6px);
+            filter: drop-shadow(0 0 8px rgba(255, 98, 0, 0.7));
             flex-shrink: 0;
         }
         .id-card .logo span {
-            font-size: 0.875rem;
+            font-size: clamp(0.625rem, 2vw, 0.75rem);
             font-weight: 700;
             color: #FF6200;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+            text-shadow: 0 0 8px rgba(0, 212, 255, 0.8);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 150px;
+            max-width: clamp(100px, 25vw, 120px);
         }
         .preview-container {
-            width: 200px;
+            width: clamp(180px, 50vw, 200px);
         }
         .preview-container .id-card {
             transform: scale(0.5);
@@ -536,7 +536,61 @@
         .cropper-container .close-btn:hover {
             color: #e55b00;
         }
-        @media (max-width: 400px) {
+        @media (max-width: 480px) and (orientation: portrait) {
+            .id-card {
+                width: 95vw;
+                padding: 6px;
+            }
+            .id-card .main-content {
+                gap: 4px;
+            }
+            .id-card .left-column {
+                max-width: 55%;
+            }
+            .id-card .name-handle {
+                max-width: 65%;
+            }
+            .id-card .name {
+                font-size: clamp(0.65rem, 2.2vw, 0.8rem);
+            }
+            .id-card .handle, .id-card .id-number {
+                font-size: clamp(0.55rem, 1.8vw, 0.65rem);
+            }
+            .id-card .details p {
+                font-size: clamp(0.45rem, 1.6vw, 0.55rem);
+                padding: 2px 3px;
+                margin: 2px 0;
+            }
+            .id-card .details p span.forever-signed {
+                -webkit-text-stroke: 0.3px #FF6200;
+            }
+            .id-card .photo {
+                width: clamp(50px, 14vw, 70px);
+                height: clamp(60px, 16.8vw, 84px);
+                border-radius: 6px;
+            }
+            .id-card .barcode {
+                width: clamp(50px, 14vw, 70px);
+                height: clamp(30px, 8.4vw, 42px);
+            }
+            .id-card .barcode text {
+                font-size: clamp(7px, 1.8vw, 9px);
+            }
+            .id-card .footer {
+                margin-top: 4px;
+            }
+            .id-card .logo img {
+                width: clamp(18px, 4.5vw, 22px);
+                height: clamp(18px, 4.5vw, 22px);
+                margin-right: 4px;
+            }
+            .id-card .logo span {
+                font-size: clamp(0.55rem, 1.8vw, 0.65rem);
+                max-width: clamp(90px, 24vw, 100px);
+            }
+            .preview-container {
+                width: clamp(160px, 45vw, 180px);
+            }
             .form-container, .preview-container {
                 width: 100%;
                 padding: 15px;
@@ -656,7 +710,7 @@
                         <div class="details">
                             <p>Member since: <span id="memberSinceDisplay"></span></p>
                             <p>Role: <span id="roleDisplay"></span></p>
-                            <p>Card Issued: <span id="issuedDisplay"></span></p>
+                            <p>Issued: <span id="issuedDisplay"></span></p>
                             <p>Expiration: <span class="forever-signed" id="expirationDisplay"></span></p>
                         </div>
                     </div>
@@ -676,11 +730,11 @@
             </div>
             <div class="button-container">
                 <button class="share-btn" onclick="shareOnTwitter()">Copy Share Message</button>
-                <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to X (Twitter)</button>
+                <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to Twitter</button>
                 <button class="download-btn" onclick="downloadImage()">Download PNG</button>
             </div>
             <div class="share-message" id="shareMessage" style="display: none;">
-                <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
+                <p>Message copied! Share it on Twitter with your downloaded ID card image.</p>
             </div>
         </div>
     </div>
@@ -709,13 +763,10 @@
             <span class="close-btn" onclick="closeAboutModal()" aria-label="Close">×</span>
             <h3>About Orange Dynasty ID Generator</h3>
             <p>
-                This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
+                This ID card generator is a fan-made project, not official from the <a href="#" target="_blank" rel="noopener">Sign Protocol team (@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.</a>.
-            </p>
-            <p>
-                Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
+                Orange Dynasty ID generator is built by <a href="#" target="_blank" rel="noopener">Chris Gold</a> and <a href="#" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust. Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="#" target="_blank" rel="noopener">Sign</a>.
             </p>
         </div>
     </div>
@@ -912,9 +963,9 @@
         }
 
         function directShareOnTwitter() {
-            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! signid.vercel.app 🧡🟠🧡🟠 #SignID $SIGN" ;
+            const tweetText = "Just generated my futuristic ID card with Orange Dynasty! Join the movement! #FuturisticID #SignGlobal";
             const encodedText = encodeURIComponent(tweetText);
-            const tweetUrl = `https://x.com/intent/tweet?text=${encodedText}`;
+            const tweetUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
             window.open(tweetUrl, '_blank');
         }
 
