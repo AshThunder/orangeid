@@ -153,16 +153,20 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
         .modal-content {
             position: relative;
             background: rgba(20, 33, 61, 0.9);
-            padding: 40px;
+            padding: 20px;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
             backdrop-filter: blur(5px);
             text-align: center;
             width: min(500px, 90vw);
+            max-height: 90vh;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
         #aboutModal .modal-content {
             max-width: 500px;
@@ -423,6 +427,7 @@
         }
         .display-message, .share-message {
             margin-top: 15px;
+            margin-bottom: 15px;
             text-align: center;
             font-size: 14px;
             color: #00D4FF;
@@ -449,7 +454,7 @@
             z-index: 1001;
             justify-content: center;
             align-items: center;
-            overflow: auto;
+            overflow-y: auto;
         }
         .cropper-container {
             background: rgba(20, 33, 61, 0.9);
@@ -459,6 +464,7 @@
             max-width: 600px;
             width: 90vw;
             max-height: 80vh;
+            overflow-y: auto;
             box-sizing: border-box;
             position: relative;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
@@ -530,7 +536,7 @@
         .cropper-container .close-btn:hover {
             color: #e55b00;
         }
-        @media (max-width: 400px) {
+        @media (max-width: 400px), (max-height: 500px) {
             .form-container, .preview-container {
                 width: 100%;
                 padding: 15px;
@@ -543,21 +549,51 @@
                 font-size: 14px;
                 padding: 10px;
             }
-            .cropper-container {
+            .modal-content {
                 padding: 15px;
-                max-width: 90vw;
+                max-height: 85vh;
             }
-            .cropper-buttons {
+            .id-card {
+                width: min(350px, 90vw);
+                height: min(227.5px, 50.75vw);
+            }
+            .id-card .name {
+                font-size: 1rem;
+            }
+            .id-card .handle, .id-card .id-number {
+                font-size: 0.75rem;
+            }
+            .id-card .details p {
+                font-size: 0.625rem;
+            }
+            .id-card .photo {
+                width: 80px;
+                height: 96px;
+            }
+            .id-card .barcode {
+                width: 80px;
+                height: 48px;
+            }
+            .button-container {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
+            }
+            .share-btn, .direct-share-btn, .download-btn {
+                font-size: 12px;
+                padding: 8px 16px;
             }
             .share-message, .display-message {
                 font-size: 12px;
                 padding: 5px;
             }
-            .button-container {
+            .cropper-container {
+                padding: 15px;
+                max-width: 90vw;
+                max-height: 85vh;
+            }
+            .cropper-buttons {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
         }
     </style>
