@@ -221,35 +221,10 @@
             animation: borderScan 3s infinite;
         }
         .id-card.landscape {
-            width: min(600px, 90vw);
-            height: min(390px, 65vw);
-            padding: 20px;
-        }
-        .id-card.landscape .name {
-            font-size: 1.5rem;
-        }
-        .id-card.landscape .handle, .id-card.landscape .id-number {
-            font-size: 1.125rem;
-        }
-        .id-card.landscape .details p {
-            font-size: 1rem;
-            padding: 5px 8px;
-        }
-        .id-card.landscape .photo {
-            width: 150px;
-            height: 180px;
-        }
-        .id-card.landscape .barcode {
-            width: 150px;
-            height: 90px;
-        }
-        .id-card.landscape .logo img {
-            width: 45px;
-            height: 45px;
-        }
-        .id-card.landscape .logo span {
-            font-size: 1.125rem;
-            max-width: 200px;
+            transform: rotate(90deg);
+            width: min(260px, 58vw);
+            height: min(400px, 90vw);
+            margin: 70px auto;
         }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
@@ -412,7 +387,9 @@
             transform-origin: top left;
         }
         .preview-container .id-card.landscape {
-            transform: scale(0.33);
+            transform: scale(0.5) rotate(90deg);
+            margin: 70px 0;
+            transform-origin: center;
         }
         .button-container {
             margin-top: 20px;
@@ -601,6 +578,9 @@
                 flex-direction: column;
                 gap: 10px;
             }
+            .id-card.landscape {
+                margin: 50px auto;
+            }
         }
     </style>
 </head>
@@ -749,7 +729,7 @@
                 This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.</a>.
+                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.
             </p>
             <p>
                 Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
@@ -815,7 +795,7 @@
             const previewCard = document.getElementById('previewCard');
             const idCard = document.getElementById('idCard');
             const toggleBtn = document.querySelector('.orientation-toggle');
-            
+
             if (isLandscape) {
                 previewCard.classList.add('landscape');
                 idCard.classList.add('landscape');
@@ -850,10 +830,10 @@
             if (typeof JsBarcode !== 'undefined') {
                 JsBarcode("#previewBarcode", generateUniqueId(), {
                     format: "CODE128",
-                    width: isLandscape ? 3 : 2,
-                    height: isLandscape ? 60 : 40,
+                    width: 2,
+                    height: 40,
                     displayValue: true,
-                    fontSize: isLandscape ? 16 : 12,
+                    fontSize: 12,
                     font: 'Orbitron',
                     textMargin: 2
                 });
@@ -897,10 +877,10 @@
 
                 JsBarcode("#barcode", barcodeContent, {
                     format: "CODE128",
-                    width: isLandscape ? 3 : 2,
-                    height: isLandscape ? 60 : 40,
+                    width: 2,
+                    height: 40,
                     displayValue: true,
-                    fontSize: isLandscape ? 16 : 12,
+                    fontSize: 12,
                     font: 'Orbitron',
                     textMargin: 2
                 });
@@ -968,7 +948,7 @@
         }
 
         function directShareOnTwitter() {
-            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN" ;
+            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN";
             const encodedText = encodeURIComponent(tweetText);
             const tweetUrl = `https://x.com/intent/tweet?text=${encodedText}`;
             window.open(tweetUrl, '_blank');
