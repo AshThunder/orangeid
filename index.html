@@ -220,11 +220,519 @@
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
         }
-        .id-card.landscape {
-            transform: rotate(90deg);
-            width: min(260px, 58vw);
-            height: min(400px, 90vw);
-            margin: 70px auto;
+        @keyframes borderScan {
+            0% { border-color: #FF6200; }
+            50% { border-color: #00D4FF; }
+            100% { border-color: #FF6200; }
+        }
+        .id-card::before, .id-card::after {
+            content: none;
+            display: none;
+        }
+        .id-card .main-content {
+            display: flex;
+            flex: 1;
+            z-index: 2;
+        }
+        .id-card .left-column {
+            flex: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .id-card .right-column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .id-card .top-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            z-index: 2;
+        }
+        .id-card .name-handle {
+            display: flex;
+            flex-direction: column;
+        }
+        .id-card .name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200, 0 0 15px #00D4FF;
+            margin: 0;
+            word-wrap: break-word;
+            z-index: 2;
+        }
+        .id-card .handle {
+            font-size: 0.875rem;
+            color: #00D4FF;
+            text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
+            margin: 5px 0 0 0;
+            word-wrap: break-word;
+            z-index: 2;
+        }
+        .id-card .id-number {
+            font-size: 0.875rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
+            z-index: 2;
+        }
+        .id-card .details p {
+            margin: 5px 0;
+            font-size: 0.75rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
+            z-index: 2;
+            border: 1px solid white;
+            padding: 3px 5px;
+            border-radius: 4px;
+        }
+        .id-card .details p span {
+            font-weight: 700;
+            color: #00D4FF;
+        }
+        .id-card .details p span.forever-signed {
+            color: #ffffff;
+            -webkit-text-stroke: 1px #FF6200;
+            text-shadow: none;
+        }
+        .id-card .photo {
+            width: 100px;
+            height: 120px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #00D4FF;
+            border: 2px solid #000000;
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.5);
+            z-index: 2;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .id-card .photo:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #00D4FF;
+        }
+        .id-card .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .id-card .barcode {
+            width: 100px;
+            height: 60px;
+            filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.7));
+            z-index: 2;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        .id-card .barcode:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px #00D4FF);
+        }
+        .id-card .barcode text {
+            font-size: 12px;
+            fill: #e0e0e0;
+            text-shadow: 0 0 5px #00D4FF;
+        }
+        .id-card .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            z-index: 2;
+            overflow: hidden;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .id-card .logo {
+            display: flex;
+            align-items: center;
+            max-width: 100%;
+            flex-shrink: 1;
+        }
+        .id-card .logo img {
+            width: 30px;
+            height: 30px;
+            margin-right: 8px;
+            filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
+            flex-shrink: 0;
+        }
+        .id-card .logo span {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: #FF6200;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
+        }
+        .preview-container {
+            width: 200px;
+        }
+        .preview-container .id-card {
+            transform: scale(0.5);
+            transform-origin: top left;
+        }
+        .button-container {
+            margin-top: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .share-btn, .direct-share-btn, .download-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .share-btn {
+            background: #00D4FF;
+            color: #fff;
+        }
+        .share-btn:hover {
+            background: #00b0d4;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        }
+        .direct-share-btn {
+            background: linear-gradient(45deg, #00D4FF, #FF6200);
+            color: #fff;
+        }
+        .direct-share-btn:hover {
+            background: linear-gradient(45deg, #00b0d4, #e55b00);
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
+        }
+        .download-btn {
+            background: #FF6200;
+            color: #fff;
+        }
+        .display-message, .share-message {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #00D4FF;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            transition: opacity 0.3s ease;
+        }
+        .display-message p, .share-message p {
+            margin: 0;
+            padding: 10px;
+            background: rgba(20, 33, 61, 0.9);
+            border-radius: 8px;
+            border: 1px solid #FF6200;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+        }
+        #cropperModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1001;
+            justify-content: center;
+            align-items: center;
+            overflow: auto;
+        }
+        .cropper-container {
+            background: rgba(20, 33, 61, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 600px;
+            width: 90vw;
+            max-height: 80vh;
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+        .cropper-container h3 {
+            color: #FF6200;
+            margin-bottom: 15px;
+            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+        }
+        .cropper-container label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00D4FF;
+            font-weight: 700;
+        }
+        .cropper-container select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #FF6200;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+        }
+        .cropper-container select option {
+            color: #000000;
+        }
+        .cropper-image-container {
+            max-height: 400px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .cropper-container img {
+            max-width: 100%;
+            max-height: 400px;
+            display: block;
+            margin: 0 auto;
+        }
+        .cropper-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+        .cropper-container button {
+            padding: 10px 20px;
+            background: #FF6200;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 700;
+IMPORTANT: Please provide the complete code or specify where to insert the provided snippet to avoid truncation issues. The provided code appears incomplete, missing the closing tags for the `<script>`, `<body>`, and `<html>` elements, as well as parts of the JavaScript logic. Below, I'll complete the code based on the previous version, incorporating your request to remove the orientation toggle and add the display message, while ensuring all functionality remains intact.
+
+Here’s the complete updated code:
+
+<xaiArtifact artifact_id="2c756bc3-3882-476d-af08-3dfe1349676c" artifact_version_id="e69b884a-a872-4b25-b11e-138797d11cfc" title="index.html" contentType="text/html">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Dynasty ID Card Generator</title>
+    <link rel="preload" href="sign.jpeg" as="image">
+    <link rel="preload" href="signicon.jpeg" as="image">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Orbitron', sans-serif, 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+            color: #e0e0e0;
+        }
+        .container {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+        }
+        .container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 10s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.2; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        .form-container, .preview-container {
+            background: rgba(20, 33, 61, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 2;
+            width: 340px;
+            border: 2px solid #000000;
+            backdrop-filter: blur(5px);
+        }
+        .form-container:hover, .preview-container:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+        .form-container h2, .preview-container h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #FF6200;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 98, 0, 0.5);
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #00D4FF;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+        }
+        .form-container input, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #FF6200;
+            border-radius: 8px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-container select option {
+            color: #000000;
+        }
+        .form-container input:focus, .form-container select:focus {
+            outline: none;
+            border-color: #00D4FF;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        .form-container input[type="file"] {
+            padding: 5px;
+        }
+        .form-container .error {
+            color: #FF6200;
+            font-size: 12px;
+            margin: -10px 0 10px;
+            display: none;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 12px;
+            background: #FF6200;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-container button:hover {
+            background: #e55b00;
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
+        }
+        .about-btn {
+            width: 100%;
+            padding: 12px;
+            background: #00D4FF;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            margin-top: 15px;
+        }
+        .about-btn:hover {
+            background: #00b0d4;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+        }
+        .about-btn:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            position: relative;
+            background: rgba(20, 33, 61, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            width: min(500px, 90vw);
+        }
+        #aboutModal .modal-content {
+            max-width: 500px;
+            width: 90vw;
+            padding: 30px;
+        }
+        #aboutModal h3 {
+            color: #FF6200;
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+        }
+        #aboutModal p {
+            font-size: 14px;
+            color: #e0e0e0;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        #aboutModal a {
+            color: #00D4FF;
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            transition: color 0.3s ease;
+        }
+        #aboutModal a:hover {
+            color: #00b0d4;
+            text-decoration: underline;
+        }
+        .modal-content .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 28px;
+            color: #FF6200;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+            transition: color 0.3s ease;
+        }
+        .modal-content .close-btn:hover {
+            color: #e55b00;
+        }
+        .id-card {
+            width: min(400px, 90vw);
+            height: min(260px, 58vw);
+            border: 3px solid #FF6200;
+            background: url('sign.jpeg');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            z-index: 2;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            box-sizing: border-box;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            animation: borderScan 3s infinite;
         }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
@@ -386,11 +894,6 @@
             transform: scale(0.5);
             transform-origin: top left;
         }
-        .preview-container .id-card.landscape {
-            transform: scale(0.5) rotate(90deg);
-            margin: 70px 0;
-            transform-origin: center;
-        }
         .button-container {
             margin-top: 20px;
             display: flex;
@@ -398,7 +901,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        .share-btn, .direct-share-btn, .download-btn, .orientation-toggle {
+        .share-btn, .direct-share-btn, .download-btn {
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
@@ -432,15 +935,7 @@
             background: #e55b00;
             box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
         }
-        .orientation-toggle {
-            background: #00D4FF;
-            color: #fff;
-        }
-        .orientation-toggle:hover {
-            background: #00b0d4;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
-        }
-        .share-message {
+        .display-message, .share-message {
             margin-top: 15px;
             text-align: center;
             font-size: 14px;
@@ -449,7 +944,7 @@
             font-family: 'Orbitron', sans-serif;
             transition: opacity 0.3s ease;
         }
-        .share-message p {
+        .display-message p, .share-message p {
             margin: 0;
             padding: 10px;
             background: rgba(20, 33, 61, 0.9);
@@ -570,16 +1065,13 @@
                 flex-direction: column;
                 gap: 8px;
             }
-            .share-message {
+            .share-message, .display-message {
                 font-size: 12px;
                 padding: 5px;
             }
             .button-container {
                 flex-direction: column;
                 gap: 10px;
-            }
-            .id-card.landscape {
-                margin: 50px auto;
             }
         }
     </style>
@@ -694,10 +1186,12 @@
                 <button class="share-btn" onclick="shareOnTwitter()">Copy Share Message</button>
                 <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to X (Twitter)</button>
                 <button class="download-btn" onclick="downloadImage()">Download PNG</button>
-                <button class="orientation-toggle" onclick="toggleOrientation()" aria-label="Toggle Orientation">Switch to Landscape</button>
             </div>
             <div class="share-message" id="shareMessage" style="display: none;">
                 <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
+            </div>
+            <div class="display-message">
+                <p>If the ID card doesn't display properly, try rotating your phone or downloading in landscape mode.</p>
             </div>
         </div>
     </div>
@@ -743,7 +1237,6 @@
     <script>
         let cropper;
         let croppedImageData;
-        let isLandscape = false;
 
         function handleScriptError(scriptName) {
             alert(`Failed to load ${scriptName}. Please check your internet connection or try again later.`);
@@ -779,7 +1272,8 @@
                 isValid = false;
             }
             if (!memberSince) {
-                document.getElementById('memberSinceError').style.display = 'block';
+                document.getElementById('접기
+memberSinceError').style.display = 'block';
                 isValid = false;
             }
             if (!role) {
@@ -790,31 +1284,12 @@
             return isValid;
         }
 
-        function toggleOrientation() {
-            isLandscape = !isLandscape;
-            const previewCard = document.getElementById('previewCard');
-            const idCard = document.getElementById('idCard');
-            const toggleBtn = document.querySelector('.orientation-toggle');
-
-            if (isLandscape) {
-                previewCard.classList.add('landscape');
-                idCard.classList.add('landscape');
-                toggleBtn.textContent = 'Switch to Portrait';
-            } else {
-                previewCard.classList.remove('landscape');
-                idCard.classList.remove('landscape');
-                toggleBtn.textContent = 'Switch to Landscape';
-            }
-            updatePreview();
-        }
-
         function updatePreview() {
             const name = document.getElementById('name').value || 'Name';
             const xHandle = document.getElementById('xHandle').value || '@Handle';
             const memberSince = document.getElementById('memberSince').value || 'Year';
             const role = document.getElementById('role').value || 'Role';
 
-            const previewCard = document.getElementById('previewCard');
             document.getElementById('previewNameDisplay').textContent = name;
             document.getElementById('previewXHandleDisplay').textContent = xHandle;
             document.getElementById('previewIdNumberDisplay').textContent = '$SIGN';
@@ -857,7 +1332,6 @@
                 const expiration = 'FOREVER SIGNED';
                 const community = 'Orange Dynasty';
 
-                const idCard = document.getElementById('idCard');
                 document.getElementById('nameDisplay').textContent = name;
                 document.getElementById('xHandleDisplay').textContent = xHandle;
                 document.getElementById('idNumberDisplay').textContent = '$SIGN';
@@ -957,12 +1431,6 @@
         function downloadImage() {
             const idCard = document.getElementById('idCard');
             const name = document.getElementById('name').value || 'id-card';
-            const wasLandscape = isLandscape;
-
-            if (wasLandscape) {
-                idCard.classList.remove('landscape');
-                isLandscape = false;
-            }
 
             document.fonts.ready.then(() => {
                 html2canvas(idCard, {
@@ -972,10 +1440,6 @@
                     height: 260,
                     scale: 2
                 }).then(canvas => {
-                    if (wasLandscape) {
-                        idCard.classList.add('landscape');
-                        isLandscape = true;
-                    }
                     const imageData = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.href = imageData;
@@ -984,10 +1448,6 @@
                     link.click();
                     document.body.removeChild(link);
                 }).catch(error => {
-                    if (wasLandscape) {
-                        idCard.classList.add('landscape');
-                        isLandscape = true;
-                    }
                     console.error('Error capturing ID card image for download:', error);
                     alert('Failed to download ID card image. Please check your connection or try again.');
                 });
