@@ -219,15 +219,44 @@
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
-            overflow: hidden;
-            contain: strict;
+        }
+        .id-card.landscape {
+            width: min(600px, 90vw);
+            height: min(390px, 65vw);
+            padding: 20px;
+        }
+        .id-card.landscape .name {
+            font-size: 1.5rem;
+        }
+        .id-card.landscape .handle, .id-card.landscape .id-number {
+            font-size: 1.125rem;
+        }
+        .id-card.landscape .details p {
+            font-size: 1rem;
+            padding: 5px 8px;
+        }
+        .id-card.landscape .photo {
+            width: 150px;
+            height: 180px;
+        }
+        .id-card.landscape .barcode {
+            width: 150px;
+            height: 90px;
+        }
+        .id-card.landscape .logo img {
+            width: 45px;
+            height: 45px;
+        }
+        .id-card.landscape .logo span {
+            font-size: 1.125rem;
+            max-width: 200px;
         }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
             50% { border-color: #00D4FF; }
             100% { border-color: #FF6200; }
         }
-        .id-card::before, .id-card.download-mode::before, .id-card::after {
+        .id-card::before, .id-card::after {
             content: none;
             display: none;
         }
@@ -241,8 +270,6 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            overflow: hidden;
-            min-width: 0;
         }
         .id-card .right-column {
             flex: 1;
@@ -250,8 +277,6 @@
             flex-direction: column;
             align-items: center;
             gap: 10px;
-            overflow: hidden;
-            min-width: 0;
         }
         .id-card .top-section {
             display: flex;
@@ -263,8 +288,6 @@
         .id-card .name-handle {
             display: flex;
             flex-direction: column;
-            max-width: 100%;
-            box-sizing: border-box;
         }
         .id-card .name {
             font-size: 1.125rem;
@@ -272,11 +295,7 @@
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200, 0 0 15px #00D4FF;
             margin: 0;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-            max-width: 100%;
-            text-overflow: clip;
-            box-sizing: border-box;
+            word-wrap: break-word;
             z-index: 2;
         }
         .id-card .handle {
@@ -284,27 +303,14 @@
             color: #00D4FF;
             text-shadow: 0 0 5px #00D4FF, 0 0 10px #00D4FF;
             margin: 5px 0 0 0;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-            max-width: 100%;
-            text-overflow: clip;
-            box-sizing: border-box;
+            word-wrap: break-word;
             z-index: 2;
         }
         .id-card .id-number {
             font-size: 0.875rem;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-            max-width: 100%;
-            text-overflow: clip;
-            box-sizing: border-box;
             z-index: 2;
-        }
-        .id-card .details {
-            max-width: 100%;
-            box-sizing: border-box;
         }
         .id-card .details p {
             margin: 5px 0;
@@ -315,11 +321,6 @@
             border: 1px solid white;
             padding: 3px 5px;
             border-radius: 4px;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-            max-width: 100%;
-            text-overflow: clip;
-            box-sizing: border-box;
         }
         .id-card .details p span {
             font-weight: 700;
@@ -402,9 +403,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
             max-width: 150px;
-            overflow-wrap: anywhere;
-            hyphens: auto;
-            box-sizing: border-box;
         }
         .preview-container {
             width: 200px;
@@ -413,6 +411,9 @@
             transform: scale(0.5);
             transform-origin: top left;
         }
+        .preview-container .id-card.landscape {
+            transform: scale(0.33);
+        }
         .button-container {
             margin-top: 20px;
             display: flex;
@@ -420,7 +421,7 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-        .share-btn, .direct-share-btn, .download-btn {
+        .share-btn, .direct-share-btn, .download-btn, .orientation-toggle {
             padding: 10px 20px;
             border: none;
             border-radius: 8px;
@@ -453,6 +454,14 @@
         .download-btn:hover {
             background: #e55b00;
             box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
+        }
+        .orientation-toggle {
+            background: #00D4FF;
+            color: #fff;
+        }
+        .orientation-toggle:hover {
+            background: #00b0d4;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
         }
         .share-message {
             margin-top: 15px;
@@ -563,26 +572,7 @@
         .cropper-container .close-btn:hover {
             color: #e55b00;
         }
-        @media (max-width: 480px) and (orientation: portrait) {
-            .id-card {
-                overflow: hidden;
-                contain: strict;
-            }
-            .id-card .left-column, .id-card .right-column {
-                overflow: hidden;
-                min-width: 0;
-            }
-            .id-card .name, .id-card .handle, .id-card .id-number, .id-card .details p, .id-card .logo span {
-                overflow-wrap: anywhere;
-                hyphens: auto;
-                max-width: 95%;
-                text-overflow: clip;
-                box-sizing: border-box;
-            }
-            .id-card .name-handle, .id-card .details {
-                max-width: 95%;
-                box-sizing: border-box;
-            }
+        @media (max-width: 400px) {
             .form-container, .preview-container {
                 width: 100%;
                 padding: 15px;
@@ -722,11 +712,12 @@
             </div>
             <div class="button-container">
                 <button class="share-btn" onclick="shareOnTwitter()">Copy Share Message</button>
-                <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to Twitter</button>
+                <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to X (Twitter)</button>
                 <button class="download-btn" onclick="downloadImage()">Download PNG</button>
+                <button class="orientation-toggle" onclick="toggleOrientation()" aria-label="Toggle Orientation">Switch to Landscape</button>
             </div>
             <div class="share-message" id="shareMessage" style="display: none;">
-                <p>Message copied! Share it on Twitter with your downloaded ID card image.</p>
+                <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
             </div>
         </div>
     </div>
@@ -758,7 +749,7 @@
                 This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.
+                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.</a>.
             </p>
             <p>
                 Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
@@ -772,6 +763,7 @@
     <script>
         let cropper;
         let croppedImageData;
+        let isLandscape = false;
 
         function handleScriptError(scriptName) {
             alert(`Failed to load ${scriptName}. Please check your internet connection or try again later.`);
@@ -818,6 +810,24 @@
             return isValid;
         }
 
+        function toggleOrientation() {
+            isLandscape = !isLandscape;
+            const previewCard = document.getElementById('previewCard');
+            const idCard = document.getElementById('idCard');
+            const toggleBtn = document.querySelector('.orientation-toggle');
+            
+            if (isLandscape) {
+                previewCard.classList.add('landscape');
+                idCard.classList.add('landscape');
+                toggleBtn.textContent = 'Switch to Portrait';
+            } else {
+                previewCard.classList.remove('landscape');
+                idCard.classList.remove('landscape');
+                toggleBtn.textContent = 'Switch to Landscape';
+            }
+            updatePreview();
+        }
+
         function updatePreview() {
             const name = document.getElementById('name').value || 'Name';
             const xHandle = document.getElementById('xHandle').value || '@Handle';
@@ -840,10 +850,10 @@
             if (typeof JsBarcode !== 'undefined') {
                 JsBarcode("#previewBarcode", generateUniqueId(), {
                     format: "CODE128",
-                    width: 2,
-                    height: 40,
+                    width: isLandscape ? 3 : 2,
+                    height: isLandscape ? 60 : 40,
                     displayValue: true,
-                    fontSize: 12,
+                    fontSize: isLandscape ? 16 : 12,
                     font: 'Orbitron',
                     textMargin: 2
                 });
@@ -887,10 +897,10 @@
 
                 JsBarcode("#barcode", barcodeContent, {
                     format: "CODE128",
-                    width: 2,
-                    height: 40,
+                    width: isLandscape ? 3 : 2,
+                    height: isLandscape ? 60 : 40,
                     displayValue: true,
-                    fontSize: 12,
+                    fontSize: isLandscape ? 16 : 12,
                     font: 'Orbitron',
                     textMargin: 2
                 });
@@ -958,7 +968,7 @@
         }
 
         function directShareOnTwitter() {
-            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN";
+            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN" ;
             const encodedText = encodeURIComponent(tweetText);
             const tweetUrl = `https://x.com/intent/tweet?text=${encodedText}`;
             window.open(tweetUrl, '_blank');
@@ -967,8 +977,13 @@
         function downloadImage() {
             const idCard = document.getElementById('idCard');
             const name = document.getElementById('name').value || 'id-card';
+            const wasLandscape = isLandscape;
 
-            idCard.classList.add('download-mode');
+            if (wasLandscape) {
+                idCard.classList.remove('landscape');
+                isLandscape = false;
+            }
+
             document.fonts.ready.then(() => {
                 html2canvas(idCard, {
                     backgroundColor: null,
@@ -977,7 +992,10 @@
                     height: 260,
                     scale: 2
                 }).then(canvas => {
-                    idCard.classList.remove('download-mode');
+                    if (wasLandscape) {
+                        idCard.classList.add('landscape');
+                        isLandscape = true;
+                    }
                     const imageData = canvas.toDataURL('image/png');
                     const link = document.createElement('a');
                     link.href = imageData;
@@ -986,8 +1004,11 @@
                     link.click();
                     document.body.removeChild(link);
                 }).catch(error => {
+                    if (wasLandscape) {
+                        idCard.classList.add('landscape');
+                        isLandscape = true;
+                    }
                     console.error('Error capturing ID card image for download:', error);
-                    idCard.classList.remove('download-mode');
                     alert('Failed to download ID card image. Please check your connection or try again.');
                 });
             });
