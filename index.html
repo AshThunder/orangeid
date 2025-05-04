@@ -153,7 +153,6 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
         }
         .modal-content {
             position: relative;
@@ -164,9 +163,6 @@
             backdrop-filter: blur(5px);
             text-align: center;
             width: min(500px, 90vw);
-            max-height: 90vh;
-            overflow-y: auto;
-            box-sizing: border-box;
         }
         #aboutModal .modal-content {
             max-width: 500px;
@@ -453,7 +449,6 @@
             z-index: 1001;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
         }
         .cropper-container {
             background: rgba(20, 33, 61, 0.9);
@@ -462,9 +457,6 @@
             text-align: center;
             max-width: 600px;
             width: 90vw;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-sizing: border-box;
             position: relative;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
         }
@@ -565,11 +557,6 @@
                 gap: 10px;
             }
         }
-        @media (max-height: 500px) {
-            .modal-content {
-                max-height: 85vh;
-            }
-        }
     </style>
 </head>
 <body>
@@ -647,6 +634,9 @@
     <div class="modal" id="modal" role="dialog" aria-label="ID Card Preview">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()" aria-label="Close">×</span>
+            <div class="display-message">
+                <p>If the ID card doesn't display properly, try rotating your phone or downloading in landscape mode.</p>
+            </div>
             <div class="id-card" id="idCard">
                 <div class="main-content">
                     <div class="left-column">
@@ -673,7 +663,7 @@
                 </div>
                 <div class="footer">
                     <div class="logo">
-                        <img src="signicon.jpeg" alt="Sign Icon" loading="fix the runtime errorlazy">
+                        <img src="signicon.jpeg" alt="Sign Icon" loading="lazy">
                         <span id="communityDisplay">Orange Dynasty</span>
                     </div>
                 </div>
@@ -685,9 +675,6 @@
             </div>
             <div class="share-message" id="shareMessage" style="display: none;">
                 <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
-            </div>
-            <div class="display-message">
-                <p>If the ID card doesn't display properly, try rotating your phone or downloading in landscape mode.</p>
             </div>
         </div>
     </div>
