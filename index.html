@@ -158,7 +158,7 @@
         .modal-content {
             position: relative;
             background: rgba(20, 33, 61, 0.9);
-            padding: 20px;
+            padding: 40px;
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
             backdrop-filter: blur(5px);
@@ -427,7 +427,6 @@
         }
         .display-message, .share-message {
             margin-top: 15px;
-            margin-bottom: 15px;
             text-align: center;
             font-size: 14px;
             color: #00D4FF;
@@ -536,7 +535,7 @@
         .cropper-container .close-btn:hover {
             color: #e55b00;
         }
-        @media (max-width: 400px), (max-height: 500px) {
+        @media (max-width: 400px) {
             .form-container, .preview-container {
                 width: 100%;
                 padding: 15px;
@@ -549,51 +548,26 @@
                 font-size: 14px;
                 padding: 10px;
             }
-            .modal-content {
+            .cropper-container {
                 padding: 15px;
-                max-height: 85vh;
+                max-width: 90vw;
             }
-            .id-card {
-                width: min(350px, 90vw);
-                height: min(227.5px, 50.75vw);
-            }
-            .id-card .name {
-                font-size: 1rem;
-            }
-            .id-card .handle, .id-card .id-number {
-                font-size: 0.75rem;
-            }
-            .id-card .details p {
-                font-size: 0.625rem;
-            }
-            .id-card .photo {
-                width: 80px;
-                height: 96px;
-            }
-            .id-card .barcode {
-                width: 80px;
-                height: 48px;
-            }
-            .button-container {
+            .cropper-buttons {
                 flex-direction: column;
-                gap: 10px;
-            }
-            .share-btn, .direct-share-btn, .download-btn {
-                font-size: 12px;
-                padding: 8px 16px;
+                gap: 8px;
             }
             .share-message, .display-message {
                 font-size: 12px;
                 padding: 5px;
             }
-            .cropper-container {
-                padding: 15px;
-                max-width: 90vw;
-                max-height: 85vh;
-            }
-            .cropper-buttons {
+            .button-container {
                 flex-direction: column;
-                gap: 8px;
+                gap: 10px;
+            }
+        }
+        @media (max-height: 500px) {
+            .modal-content {
+                max-height: 85vh;
             }
         }
     </style>
@@ -699,7 +673,7 @@
                 </div>
                 <div class="footer">
                     <div class="logo">
-                        <img src="signicon.jpeg" alt="Sign Icon" loading="lazy">
+                        <img src="signicon.jpeg" alt="Sign Icon" loading="fix the runtime errorlazy">
                         <span id="communityDisplay">Orange Dynasty</span>
                     </div>
                 </div>
