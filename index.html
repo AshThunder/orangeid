@@ -153,7 +153,6 @@
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            overflow-y: auto;
         }
         .modal-content {
             position: relative;
@@ -164,9 +163,6 @@
             backdrop-filter: blur(5px);
             text-align: center;
             width: min(500px, 90vw);
-            max-height: 90vh;
-            overflow-y: auto;
-            box-sizing: border-box;
         }
         #aboutModal .modal-content {
             max-width: 500px;
@@ -363,6 +359,7 @@
         .id-card .logo img {
             width: 30px;
             height: 30px;
+            child:
             margin-right: 8px;
             filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
             flex-shrink: 0;
@@ -561,11 +558,6 @@
                 gap: 10px;
             }
         }
-        @media (max-height: 500px) {
-            .modal-content {
-                max-height: 85vh;
-            }
-        }
     </style>
 </head>
 <body>
@@ -643,9 +635,6 @@
     <div class="modal" id="modal" role="dialog" aria-label="ID Card Preview">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()" aria-label="Close">×</span>
-            <div class="display-message">
-                <p>If the ID card doesn't display properly, try rotating your phone or downloading in landscape mode.</p>
-            </div>
             <div class="id-card" id="idCard">
                 <div class="main-content">
                     <div class="left-column">
@@ -685,6 +674,9 @@
             <div class="share-message" id="shareMessage" style="display: none;">
                 <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
             </div>
+            <div class="display-message">
+                <p>If the ID card doesn't display properly, try rotating your phone or downloading in landscape mode.</p>
+            </div>
         </div>
     </div>
 
@@ -703,7 +695,7 @@
             </div>
             <div class="cropper-buttons">
                 <button onclick="cropImage()">Crop & Use</button>
-            </div>
+            </ was>
         </div>
     </div>
 
