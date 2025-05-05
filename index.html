@@ -835,13 +835,11 @@
                 const expiration = 'FOREVER SIGNED';
                 const community = 'Orange Dynasty';
 
-                // Ensure critical elements exist
                 const idCard = document.getElementById('idCard');
                 if (!idCard) {
                     throw new Error('ID card element not found.');
                 }
 
-                // Update ID card content
                 const nameDisplay = document.getElementById('nameDisplay');
                 const xHandleDisplay = document.getElementById('xHandleDisplay');
                 const idNumberDisplay = document.getElementById('idNumberDisplay');
@@ -868,7 +866,6 @@
 
                 photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}">` : '<span>Photo Placeholder</span>';
 
-                // Render barcode with fallback
                 const barcodeElement = document.getElementById('barcode');
                 if (!barcodeElement) {
                     throw new Error('Barcode element not found.');
@@ -894,15 +891,12 @@
                     }
                 }
 
-                // Ensure fonts and assets are loaded
                 return document.fonts.ready.then(() => {
-                    // Verify modal exists
                     const modal = document.getElementById('modal');
                     if (!modal) {
                         throw new Error('Modal element not found.');
                     }
 
-                    // Display modal
                     modal.style.display = 'flex';
                     updateShareableLink(name, xHandle, memberSince, role);
                 });
@@ -974,7 +968,7 @@
 
         function downloadImage() {
             const idCard = document.getElementById('idCard');
-            const name = document.getElementById('name').value || 'id-card';
+            const name = document.getElementById('name').value.trim() || 'id-card';
             const timestamp = formatDate(new Date()).replace(/-/g, '');
 
             idCard.classList.add('download-mode');
@@ -988,23 +982,21 @@
                         scale: 3
                     }).then(canvas => {
                         idCard.classList.remove('download-mode');
-                        const imageURL = canvas.toDataURL('image/png');
-
-                        // Create an Image element for download
-                        var img = new Image();
-                        img.crossOrigin = "Anonymous";
-                        img.id = "getshot";
-                        img.src = imageURL;
-                        document.body.appendChild(img);
-
-                        // Create anchor element for download
-                        var a = document.createElement("a");
-                        a.href = img.src;
-                        a.download = `id-card_${name}_${timestamp}.png`;
-                        a.click();
-
-                        // Clean up
-                        document.body.removeChild(img);
+                        // Convert canvas to Blob
+                        canvas.toBlob(blob => {
+                            if (!blob) {
+                                throw new Error('Failed to create Blob from canvas.');
+                            }
+                            // Create object URL for the Blob
+                            const url = URL.createObjectURL(blob);
+                            // Create anchor element for download
+                            const a = document.createElement('a');
+                            a.href = url;
+                            a.download = `id-card_${name}_${timestamp}.png`;
+                            a.click();
+                            // Clean up
+                            URL.revokeObjectURL(url);
+                        }, 'image/png');
                     }).catch(error => {
                         console.error('Error capturing ID card image for download:', error, {
                             message: error.message,
@@ -1084,12 +1076,6 @@
 
         function updateShareableLink(name, xHandle, memberSince, role) {
             try {
-                // Check if the document is in a restricted context (e.g., about:srcdoc)
-                if (window.location.href === 'about:srcdoc' || window.location.protocol === 'about:') {
-                    console.warn('Skipping history.replaceState in about:srcdoc context.');
-                    return;
-                }
-
                 const params = new URLSearchParams({
                     name,
                     xHandle,
@@ -1099,8 +1085,8 @@
                 const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
                 window.history.replaceState(null, '', newUrl);
             } catch (error) {
-                console.warn('Failed to update shareable link:', error);
-                // Continue execution without alerting the user, as this is non-critical
+                console.warn('Failed to update URL with shareable link:', error);
+                // Silently ignore history API errors in restricted environments
             }
         }
 
