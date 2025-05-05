@@ -722,7 +722,7 @@
                 This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.</a>.
+                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.
             </p>
             <p>
                 Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
@@ -922,7 +922,7 @@
         }
 
         function directShareOnTwitter() {
-            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN" ;
+            const tweetText = "Just created my Orange Dynasty ID card! for fun and to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN";
             const encodedText = encodeURIComponent(tweetText);
             const tweetUrl = `https://x.com/intent/tweet?text=${encodedText}`;
             window.open(tweetUrl, '_blank');
@@ -931,29 +931,58 @@
         function downloadImage() {
             const idCard = document.getElementById('idCard');
             const name = document.getElementById('name').value || 'id-card';
+            const timestamp = formatDate(new Date()).replace(/-/g, '');
 
             idCard.classList.add('download-mode');
             document.fonts.ready.then(() => {
-                html2canvas(idCard, {
-                    backgroundColor: null,
-                    useCORS: true,
-                    width: idCard.offsetWidth,
-                    height: idCard.offsetHeight,
-                    scale: window.devicePixelRatio || 2
-                }).then(canvas => {
+                try {
+                    html2canvas(idCard, {
+                        backgroundColor: null,
+                        useCORS: true,
+                        width: idCard.offsetWidth,
+                        height: idCard.offsetHeight,
+                        scale: 3
+                    }).then(canvas => {
+                        idCard.classList.remove('download-mode');
+                        const imageURL = canvas.toDataURL('image/png');
+
+                        // Create an Image element for download
+                        var img = new Image();
+                        img.crossOrigin = "Anonymous";
+                        img.id = "getshot";
+                        img.src = imageURL;
+                        document.body.appendChild(img);
+
+                        // Create anchor element for download
+                        var a = document.createElement("a");
+                        a.href = img.src;
+                        a.download = `id-card_${name}_${timestamp}.png`;
+                        a.click();
+
+                        // Clean up
+                        document.body.removeChild(img);
+                    }).catch(error => {
+                        console.error('Error capturing ID card image for download:', error, {
+                            message: error.message,
+                            stack: error.stack,
+                            userAgent: navigator.userAgent
+                        });
+                        idCard.classList.remove('download-mode');
+                        alert('Failed to download ID card image. Please try using Safari, rotate to landscape mode, or ensure your iOS is up to date.');
+                    });
+                } catch (error) {
+                    console.error('Unexpected error in downloadImage:', error, {
+                        message: error.message,
+                        stack: error.stack,
+                        userAgent: navigator.userAgent
+                    });
                     idCard.classList.remove('download-mode');
-                    const imageData = canvas.toDataURL('image/png');
-                    const link = document.createElement('a');
-                    link.href = imageData;
-                    link.download = `${name}-id-card.png`;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                }).catch(error => {
-                    console.error('Error capturing ID card image for download:', error);
-                    idCard.classList.remove('download-mode');
-                    alert('Failed to download ID card image. Please try again or use a different device.');
-                });
+                    alert('An unexpected error occurred. Please try using Safari or contact support.');
+                }
+            }).catch(error => {
+                console.error('Font loading error:', error);
+                idCard.classList.remove('download-mode');
+                alert('Failed to load fonts. Please refresh the page and try again.');
             });
         }
 
