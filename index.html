@@ -753,10 +753,10 @@
         }
 
         function validateInputs() {
-            const name = document.getElementById('name').value;
-            const xHandle = document.getElementById('xHandle').value;
+            const name = document.getElementById('name').value.trim();
+            const xHandle = document.getElementById('xHandle').value.trim();
             const memberSince = document.getElementById('memberSince').value;
-            const role = document.getElementById('role').value;
+            const role = document.getElementById('role').value.trim();
             const handleRegex = /^@[A-Za-z0-9_]{1,15}$/;
 
             let isValid = true;
@@ -802,15 +802,19 @@
             photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}">` : '<span>Photo</span>';
 
             if (typeof JsBarcode !== 'undefined') {
-                JsBarcode("#previewBarcode", generateUniqueId(), {
-                    format: "CODE128",
-                    width: 2,
-                    height: 40,
-                    displayValue: true,
-                    fontSize: 12,
-                    font: 'Orbitron',
-                    textMargin: 2
-                });
+                try {
+                    JsBarcode("#previewBarcode", generateUniqueId(), {
+                        format: "CODE128",
+                        width: 2,
+                        height: 40,
+                        displayValue: true,
+                        fontSize: 12,
+                        font: 'Orbitron',
+                        textMargin: 2
+                    });
+                } catch (e) {
+                    console.warn('Failed to render preview barcode:', e);
+                }
             }
         }
 
@@ -821,54 +825,94 @@
                     return;
                 }
 
-                const name = document.getElementById('name').value;
-                const xHandle = document.getElementById('xHandle').value;
+                const name = document.getElementById('name').value.trim();
+                const xHandle = document.getElementById('xHandle').value.trim();
                 const memberSince = document.getElementById('memberSince').value;
-                const role = document.getElementById('role').value;
+                const role = document.getElementById('role').value.trim();
 
                 const barcodeContent = generateUniqueId();
                 const formattedIssued = formatDate(new Date());
                 const expiration = 'FOREVER SIGNED';
                 const community = 'Orange Dynasty';
 
+                // Ensure critical elements exist
                 const idCard = document.getElementById('idCard');
-                document.getElementById('nameDisplay').textContent = name;
-                document.getElementById('xHandleDisplay').textContent = xHandle;
-                document.getElementById('idNumberDisplay').textContent = '$SIGN';
-                document.getElementById('memberSinceDisplay').textContent = memberSince;
-                document.getElementById('roleDisplay').textContent = role;
-                document.getElementById('issuedDisplay').textContent = formattedIssued;
-                document.getElementById('expirationDisplay').textContent = expiration;
-                document.getElementById('communityDisplay').textContent = community;
+                if (!idCard) {
+                    throw new Error('ID card element not found.');
+                }
 
+                // Update ID card content
+                const nameDisplay = document.getElementById('nameDisplay');
+                const xHandleDisplay = document.getElementById('xHandleDisplay');
+                const idNumberDisplay = document.getElementById('idNumberDisplay');
+                const memberSinceDisplay = document.getElementById('memberSinceDisplay');
+                const roleDisplay = document.getElementById('roleDisplay');
+                const issuedDisplay = document.getElementById('issuedDisplay');
+                const expirationDisplay = document.getElementById('expirationDisplay');
+                const communityDisplay = document.getElementById('communityDisplay');
                 const photoDisplay = document.getElementById('photoDisplay');
+
+                if (!nameDisplay || !xHandleDisplay || !idNumberDisplay || !memberSinceDisplay ||
+                    !roleDisplay || !issuedDisplay || !expirationDisplay || !communityDisplay || !photoDisplay) {
+                    throw new Error('One or more ID card display elements are missing.');
+                }
+
+                nameDisplay.textContent = name;
+                xHandleDisplay.textContent = xHandle;
+                idNumberDisplay.textContent = '$SIGN';
+                memberSinceDisplay.textContent = memberSince;
+                roleDisplay.textContent = role;
+                issuedDisplay.textContent = formattedIssued;
+                expirationDisplay.textContent = expiration;
+                communityDisplay.textContent = community;
+
                 photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}">` : '<span>Photo Placeholder</span>';
 
-                if (typeof JsBarcode === 'undefined') {
-                    alert('Barcode library not loaded. Please refresh the page or check your connection.');
-                    return;
+                // Render barcode with fallback
+                const barcodeElement = document.getElementById('barcode');
+                if (!barcodeElement) {
+                    throw new Error('Barcode element not found.');
                 }
 
-                JsBarcode("#barcode", barcodeContent, {
-                    format: "CODE128",
-                    width: 2,
-                    height: 40,
-                    displayValue: true,
-                    fontSize: 12,
-                    font: 'Orbitron',
-                    textMargin: 2
-                });
+                if (typeof JsBarcode === 'undefined') {
+                    console.warn('JsBarcode library not loaded. Skipping barcode rendering.');
+                    barcodeElement.innerHTML = '<text>Barcode Unavailable</text>';
+                } else {
+                    try {
+                        JsBarcode("#barcode", barcodeContent, {
+                            format: "CODE128",
+                            width: 2,
+                            height: 40,
+                            displayValue: true,
+                            fontSize: 12,
+                            font: 'Orbitron',
+                            textMargin: 2
+                        });
+                    } catch (e) {
+                        console.warn('Failed to render barcode:', e);
+                        barcodeElement.innerHTML = '<text>Barcode Unavailable</text>';
+                    }
+                }
 
-                const modal = document.getElementById('modal');
-                if (modal) {
+                // Ensure fonts and assets are loaded
+                return document.fonts.ready.then(() => {
+                    // Verify modal exists
+                    const modal = document.getElementById('modal');
+                    if (!modal) {
+                        throw new Error('Modal element not found.');
+                    }
+
+                    // Display modal
                     modal.style.display = 'flex';
                     updateShareableLink(name, xHandle, memberSince, role);
-                } else {
-                    alert('Error: Modal element not found.');
-                }
+                });
             } catch (error) {
-                console.error('Error generating ID card:', error);
-                alert('An error occurred while generating the ID card: ' + error.message);
+                console.error('Error generating ID card:', error, {
+                    message: error.message,
+                    stack: error.stack,
+                    userAgent: navigator.userAgent
+                });
+                alert(`Failed to generate ID card: ${error.message || 'Unknown error. Please try again or use Safari.'}`);
             }
         }
 
@@ -1039,14 +1083,25 @@
         }
 
         function updateShareableLink(name, xHandle, memberSince, role) {
-            const params = new URLSearchParams({
-                name,
-                xHandle,
-                memberSince,
-                role
-            });
-            const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-            window.history.replaceState(null, '', newUrl);
+            try {
+                // Check if the document is in a restricted context (e.g., about:srcdoc)
+                if (window.location.href === 'about:srcdoc' || window.location.protocol === 'about:') {
+                    console.warn('Skipping history.replaceState in about:srcdoc context.');
+                    return;
+                }
+
+                const params = new URLSearchParams({
+                    name,
+                    xHandle,
+                    memberSince,
+                    role
+                });
+                const newUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
+                window.history.replaceState(null, '', newUrl);
+            } catch (error) {
+                console.warn('Failed to update shareable link:', error);
+                // Continue execution without alerting the user, as this is non-critical
+            }
         }
 
         function loadFromURL() {
