@@ -967,60 +967,66 @@
         }
 
         function downloadImage() {
-            const idCard = document.getElementById('idCard');
-            const name = document.getElementById('name').value.trim() || 'id-card';
-            const timestamp = formatDate(new Date()).replace(/-/g, '');
+    const idCard = document.getElementById('idCard');
+    const name = document.getElementById('name').value.trim() || 'id-card';
+    const timestamp = formatDate(new Date()).replace(/-/g, '');
+    const filename = `id-card_${name}_${timestamp}.png`;
 
-            idCard.classList.add('download-mode');
-            document.fonts.ready.then(() => {
-                try {
-                    html2canvas(idCard, {
-                        backgroundColor: null,
-                        useCORS: true,
-                        width: idCard.offsetWidth,
-                        height: idCard.offsetHeight,
-                        scale: 3
-                    }).then(canvas => {
-                        idCard.classList.remove('download-mode');
-                        // Convert canvas to Blob
-                        canvas.toBlob(blob => {
-                            if (!blob) {
-                                throw new Error('Failed to create Blob from canvas.');
-                            }
-                            // Create object URL for the Blob
-                            const url = URL.createObjectURL(blob);
-                            // Create anchor element for download
-                            const a = document.createElement('a');
-                            a.href = url;
-                            a.download = `id-card_${name}_${timestamp}.png`;
-                            a.click();
-                            // Clean up
-                            URL.revokeObjectURL(url);
-                        }, 'image/png');
-                    }).catch(error => {
-                        console.error('Error capturing ID card image for download:', error, {
-                            message: error.message,
-                            stack: error.stack,
-                            userAgent: navigator.userAgent
-                        });
-                        idCard.classList.remove('download-mode');
-                        alert('Failed to download ID card image. Please try using Safari, rotate to landscape mode, or ensure your iOS is up to date.');
-                    });
-                } catch (error) {
-                    console.error('Unexpected error in downloadImage:', error, {
-                        message: error.message,
-                        stack: error.stack,
-                        userAgent: navigator.userAgent
-                    });
-                    idCard.classList.remove('download-mode');
-                    alert('An unexpected error occurred. Please try using Safari or contact support.');
-                }
-            }).catch(error => {
-                console.error('Font loading error:', error);
-                idCard.classList.remove('download-mode');
-                alert('Failed to load fonts. Please refresh the page and try again.');
-            });
-        }
+    idCard.classList.add('download-mode');
+    
+    document.fonts.ready.then(() => {
+        html2canvas(idCard, {
+            backgroundColor: null,
+            useCORS: true,
+            width: idCard.offsetWidth,
+            height: idCard.offsetHeight,
+            scale: 3
+        }).then(canvas => {
+            idCard.classList.remove('download-mode');
+            
+            // iOS-specific handling
+            if (/iPad|iPhone|iPod/.test(navigator.userAgent)) {
+                // For iOS, we'll open the image in a new tab and let user manually save
+                const imgData = canvas.toDataURL('image/png');
+                const newWindow = http://window.open();
+                newWindow.document.write(`<img src="${imgData}" />`);
+                newWindow.document.close();
+                
+                // Show instructions for iOS users
+                setTimeout(() => {
+                    alert('On iOS: Press and hold the image, then select "Save Image"');
+                }, 500);
+            } else {
+                // Standard download for other platforms
+                canvas.toBlob(blob => {
+                    if (!blob) {
+                        throw new Error('Failed to create Blob from canvas.');
+                    }
+                    
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    http://a.download = filename;
+                    document.body.appendChild(a);
+                    http://a.click();
+                    
+                    setTimeout(() => {
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    }, 100);
+                }, 'image/png');
+            }
+        }).catch(error => {
+            console.error('Error capturing ID card image:', error);
+            idCard.classList.remove('download-mode');
+            alert('Error generating image. Please try again.');
+        });
+    }).catch(error => {
+        console.error('Font loading error:', error);
+        idCard.classList.remove('download-mode');
+        alert('Failed to load fonts. Please refresh and try again.');
+    });
+}
 
         function handlePhotoUpload(event) {
             const file = event.target.files[0];
