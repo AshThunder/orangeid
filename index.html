@@ -6,27 +6,35 @@
     <title>Orange Dynasty ID Card Generator</title>
     <link rel="preload" href="sign.jpeg" as="image">
     <link rel="preload" href="signicon.jpeg" as="image">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Orbitron', sans-serif, 'Arial', sans-serif;
+        * {
             margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, #0d1b2a 0%, #1b263b 100%);
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d1b2a;
             color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
         }
         .container {
+            max-width: 1200px;
+            width: 100%;
             display: flex;
-            gap: 40px;
+            gap: 2rem;
             flex-wrap: wrap;
             justify-content: center;
-            align-items: flex-start;
-            padding: 20px;
             position: relative;
             z-index: 1;
-            min-height: 100vh;
         }
         .container::before {
             content: '';
@@ -35,107 +43,117 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.1) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 98, 0, 0.1) 0%, transparent 70%);
             z-index: -1;
-            animation: pulse 10s infinite;
+            animation: pulse 8s infinite;
         }
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.2); opacity: 0.2; }
-            100% { transform: scale(1); opacity: 0.5; }
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.1; transform: scale(1.1); }
+            100% { opacity: 0.3; transform: scale(1); }
         }
         .form-container, .preview-container {
-            background: rgba(20, 33, 61, 0.9);
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            z-index: 2;
-            width: 340px;
-            border: 2px solid #000000;
-            backdrop-filter: blur(5px);
+            background: rgba(20, 33, 61, 0.85);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(255, 98, 0, 0.2);
+            backdrop-filter: blur(8px);
+            flex: 1;
+            min-width: 280px;
+            max-width: 400px;
+            transition: transform 0.3s ease;
         }
         .form-container:hover, .preview-container:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+            transform: translateY(-5px);
         }
-        .form-container h2, .preview-container h3 {
-            text-align: center;
-            margin-bottom: 20px;
+        .form-container h1 {
+            font-family: 'Orbitron', sans-serif;
             color: #FF6200;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 98, 0, 0.5);
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 8px rgba(255, 98, 0, 0.5);
         }
-        .form-container label {
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .form-group label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: 700;
-            color: #00D4FF;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            font-size: 0.9rem;
+            color: #FF6200;
+            margin-bottom: 0.3rem;
+            font-weight: 600;
         }
-        .form-container input, .form-container select {
+        .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #FF6200;
+            padding: 0.7rem;
+            border: 2px solid #FF6200;
             border-radius: 8px;
-            font-size: 14px;
             background: rgba(255, 255, 255, 0.05);
             color: #e0e0e0;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
         }
-        .form-container select option {
-            color: #000000;
-        }
-        .form-container input:focus, .form-container select:focus {
+        .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #00D4FF;
-            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+            border-color: #FFA500;
+            box-shadow: 0 0 8px rgba(255, 165, 0, 0.3);
         }
-        .form-container input[type="file"] {
-            padding: 5px;
+        .form-group input[type="file"] {
+            padding: 0.3rem;
         }
-        .form-container .error {
+        .form-group .error {
             color: #FF6200;
-            font-size: 12px;
-            margin: -10px 0 10px;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
             display: none;
         }
-        .form-container button {
+        .form-group .tooltip {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00D4FF;
+            font-size: 0.8rem;
+            cursor: help;
+        }
+        .btn {
             width: 100%;
-            padding: 12px;
-            background: #FF6200;
-            color: #fff;
+            padding: 0.8rem;
             border: none;
             border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
             font-weight: 700;
-            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-        .form-container button:hover {
-            background: #e55b00;
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
+        .btn-primary {
+            background: linear-gradient(45deg, #FF6200, #e55b00);
+            color: #fff;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
-        .about-btn {
-            width: 100%;
-            padding: 12px;
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #e55b00, #FF6200);
+            box-shadow: 0 0 12px rgba(255, 98, 0, 0.6);
+        }
+        .btn-secondary {
             background: #00D4FF;
             color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-            margin-top: 15px;
         }
-        .about-btn:hover {
+        .btn-secondary:hover {
             background: #00b0d4;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
+            box-shadow: 0 0 12px rgba(0, 212, 255, 0.6);
+        }
+        .preview-container h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FF6200;
+            text-align: center;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 8px rgba(255, 98, 0, 0.5);
         }
         .modal {
             display: none;
@@ -144,51 +162,54 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .modal-content {
             background: rgba(20, 33, 61, 0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            max-width: 600px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 98, 0, 0.4);
+            backdrop-filter: blur(8px);
+            max-width: 500px;
             width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            backdrop-filter: blur(5px);
-            margin: 0;
+            text-align: center;
+            position: relative;
         }
-        .modal-content h3 {
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
             color: #FF6200;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(255, 98, 0, 0.5);
-            margin-bottom: 15px;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
         }
         .modal-content p {
-            color: #e0e0e0;
-            font-size: 14px;
+            font-size: 0.9rem;
             line-height: 1.5;
+            margin-bottom: 1rem;
         }
         .modal-content a {
-            color: #00D4FF;
+            color: #FFA500;
             text-decoration: none;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
+            font-weight: 600;
         }
         .modal-content a:hover {
-            color: #00b0d4;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
+            color: #e55b00;
         }
         .close-btn {
             position: absolute;
             top: 10px;
-            right: 10px;
-            font-size: 24px;
-            cursor: pointer;
+            right: 15px;
+            font-size: 1.5rem;
             color: #FF6200;
-            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
+            cursor: pointer;
+            transition: color 0.3s ease;
         }
         .close-btn:hover {
             color: #e55b00;
@@ -198,21 +219,20 @@
             height: 260px;
             max-width: 90vw;
             border: 3px solid #FF6200;
-            background: url('sign.jpeg') no-repeat center center;
-            background-size: cover;
+            background: url('sign.jpeg') no-repeat center center / cover;
             background-color: #0d1b2a;
             position: relative;
-            z-index: 2;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 8px;
             padding: 10px;
             box-sizing: border-box;
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-            animation: borderScan 3s infinite;
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.3);
+            animation: borderGlow 2s infinite;
         }
         .id-card.download-mode {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             margin: 0;
@@ -221,477 +241,320 @@
             z-index: 1001;
             box-shadow: none;
         }
-        @keyframes borderScan {
+        @keyframes borderGlow {
             0% { border-color: #FF6200; }
-            50% { border-color: #00D4FF; }
+            50% { border-color: #FFA500; }
             100% { border-color: #FF6200; }
         }
-        .id-card .main-content {
-            display: flex;
-            flex: 1;
-            z-index: 2;
-            gap: 8px;
-        }
         .id-card .left-column {
-            flex: 2;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 8px;
         }
         .id-card .right-column {
-            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 8px;
         }
-        .id-card .top-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 8px;
-            z-index: 2;
-        }
         .id-card .name {
-            font-size: 16px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
             font-weight: 700;
-            color: #e0e0e0;
-            text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
-            margin: 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .id-card .handle {
-            font-size: 12px;
-            color: #00D4FF;
-            text-shadow: 0 0 5px #00D4FF;
-            margin: 4px 0 0 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .id-card .id-number {
-            font-size: 12px;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .id-card .details p {
-            margin: 4px 0;
-            font-size: 10px;
+        .id-card .handle {
+            font-size: 0.75rem;
+            color: #FFA500;
+            text-shadow: 0 0 3px #FF6200;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .id-number {
+            font-size: 0.75rem;
             color: #e0e0e0;
-            text-shadow: 0 0 5px #00D4FF;
-            border: 1px solid white;
+            text-shadow: 0 0 3px #FF6200;
+            text-align: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .details p {
+            font-size: 0.65rem;
+            color: #e0e0e0;
+            background: rgba(255, 98, 0, 0.1);
+            border: 1px solid #FF6200;
             padding: 2px 4px;
             border-radius: 4px;
+            margin: 2px 0;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
         .id-card .details p span {
-            font-weight: 700;
-            color: #00D4FF;
+            color: #FFA500;
+            font-weight: 600;
         }
         .id-card .details p span.forever-signed {
-            color: #ffffff;
-            -webkit-text-stroke: 1px #FF6200;
-            text-shadow: none;
+            color: #fff;
+            -webkit-text-stroke: 0.5px #FF6200;
         }
         .id-card .photo {
             width: 100px;
             height: 120px;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            color: #00D4FF;
-            border: 2px solid #000000;
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.5);
-            z-index: 2;
+            font-size: 0.75rem;
+            color: #FF6200;
+            border: 2px solid #FF6200;
+            box-shadow: 0 0 10px rgba(255, 98, 0, 0.3);
         }
         .id-card .photo img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            border-radius: 6px;
         }
         .id-card .barcode {
             width: 100px;
             height: 60px;
-            filter: drop-shadow(0 0 12px rgba(0, 212, 255, 0.7));
-            z-index: 2;
+            filter: drop-shadow(0 0 8px rgba(255, 98, 0, 0.5));
         }
         .id-card .footer {
+            grid-column: 1 / -1;
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 8px;
-            z-index: 2;
         }
         .id-card .logo {
             display: flex;
             align-items: center;
-            max-width: 80%;
+            gap: 6px;
         }
         .id-card .logo img {
-            width: 24px;
-            height: 24px;
-            margin-right: 6px;
-            filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
-            object-fit: contain;
+            width: 20px;
+            height: 20px;
+            filter: drop-shadow(0 0 8px rgba(255, 98, 0, 0.5));
         }
         .id-card .logo span {
-            font-size: 10px;
-            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
             color: #FF6200;
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-        .preview-container {
-            width: 200px;
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
         }
         .preview-container .id-card {
             transform: scale(0.5);
             transform-origin: top left;
         }
-        .button-container {
-            margin-top: 20px;
+        .button-group {
             display: flex;
-            gap: 15px;
-            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
             flex-wrap: wrap;
-        }
-        .download-note {
-            margin-top: 10px;
-            text-align: center;
-            font-size: 12px;
-            color: #00D4FF;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-        }
-        .share-btn, .direct-share-btn, .download-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 700;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-        .share-btn {
-            background: #00D4FF;
-            color: #fff;
-        }
-        .share-btn:hover {
-            background: #00b0d4;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.7);
-        }
-        .direct-share-btn {
-            background: linear-gradient(45deg, #00D4FF, #FF6200);
-            color: #fff;
-        }
-        .direct-share-btn:hover {
-            background: linear-gradient(45deg, #00b0d4, #e55b00);
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
-        }
-        .download-btn {
-            background: #FF6200;
-            color: #fff;
-        }
-        .download-btn:hover {
-            background: #e55b00;
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
+            justify-content: center;
         }
         .share-message {
-            margin-top: 15px;
-            text-align: center;
-            font-size: 14px;
-            color: #00D4FF;
-            text-shadow: 0 0 5px rgba(0, 212, 255, 0.5);
-        }
-        .share-message p {
-            margin: 0;
-            padding: 10px;
-            background: rgba(20, 33, 61, 0.9);
-            border-radius: 8px;
-            border: 1px solid #FF6200;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #FF6200;
+            background: rgba(255, 98, 0, 0.1);
+            padding: 0.5rem;
+            border-radius: 6px;
+            display: none;
         }
         .cropper-container {
             max-width: 100%;
-            margin: 20px 0;
+            margin: 1rem 0;
         }
         .cropper-container img {
             max-width: 100%;
         }
-        #cropModal button {
-            width: 100%;
-            padding: 12px;
-            background: #FF6200;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 700;
-            text-shadow: 0 0 5px rgba(255, 98, 0, 0.5);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-        }
-        #cropModal button:hover {
-            background: #e55b00;
-            box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
-        }
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-container, .preview-container {
+                max-width: 100%;
+            }
             .id-card {
                 transform: scale(0.9);
-                transform-origin: center;
             }
-            .id-card .name {
-                font-size: 14px;
-            }
-            .id-card .handle, .id-card .id-number {
-                font-size: 11px;
-            }
-            .id-card .details p {
-                font-size: 9px;
-            }
-            .id-card .photo {
-                width: 90px;
-                height: 108px;
-            }
-            .id-card .barcode {
-                width: 90px;
-                height: 54px;
-            }
-            .id-card .logo img {
-                width: 22px;
-                height: 22px;
-            }
-            .id-card .logo span {
-                font-size: 9px;
-            }
+            .id-card .name { font-size: 0.9rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.7rem; }
+            .id-card .details p { font-size: 0.6rem; }
+            .id-card .photo { width: 90px; height: 108px; }
+            .id-card .barcode { width: 90px; height: 54px; }
+            .id-card .logo img { width: 18px; height: 18px; }
+            .id-card .logo span { font-size: 0.65rem; }
         }
-        @media (max-width: 400px) {
-            .form-container, .preview-container {
-                width: 100%;
-                padding: 15px;
-            }
-            .form-container input, .form-container select {
-                font-size: 12px;
-                padding: 8px;
-            }
-            .form-container button, .about-btn, #cropModal button {
-                font-size: 14px;
-                padding: 10px;
-            }
+        @media (max-width: 480px) {
+            body { padding: 1rem; }
+            .form-container, .preview-container { padding: 1rem; }
+            .form-container h1 { font-size: 1.5rem; }
+            .preview-container h2 { font-size: 1.2rem; }
+            .form-group input, .form-group select { font-size: 0.9rem; padding: 0.6rem; }
+            .btn { font-size: 0.9rem; padding: 0.7rem; }
             .id-card {
                 transform: scale(0.8);
             }
-            .id-card .name {
-                font-size: 12px;
-            }
-            .id-card .handle, .id-card .id-number {
-                font-size: 10px;
-            }
-            .id-card .details p {
-                font-size: 8px;
-            }
-            .id-card .photo {
-                width: 80px;
-                height: 96px;
-            }
-            .id-card .barcode {
-                width: 80px;
-                height: 48px;
-            }
-            .id-card .logo img {
-                width: 20px;
-                height: 20px;
-            }
-            .id-card .logo span {
-                font-size: 8px;
-            }
-        }
-        @media (max-width: 320px) {
-            .id-card {
-                transform: scale(0.7);
-            }
-            .id-card .name {
-                font-size: 11px;
-            }
-            .id-card .handle, .id-card .id-number {
-                font-size: 9px;
-            }
-            .id-card .details p {
-                font-size: 7px;
-            }
-            .id-card .photo {
-                width: 70px;
-                height: 84px;
-            }
-            .id-card .barcode {
-                width: 70px;
-                height: 42px;
-            }
-            .id-card .logo img {
-                width: 18px;
-                height: 18px;
-            }
-            .id-card .logo span {
-                font-size: 7px;
-            }
+            .id-card .name { font-size: 0.8rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.65rem; }
+            .id-card .details p { font-size: 0.55rem; }
+            .id-card .photo { width: 80px; height: 96px; }
+            .id-card .barcode { width: 80px; height: 48px; }
+            .id-card .logo img { width: 16px; height: 16px; }
+            .id-card .logo span { font-size: 0.6rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="form-container">
-            <h2>Orange Dynasty</h2>
-            <h2>ID Card Generator</h2>
-            <label for="name">Name (max 50 chars):</label>
-            <input type="text" id="name" placeholder="e.g., David Stone" maxlength="50">
-            <span class="error" id="nameError">Name is required</span>
-            <label for="xHandle">X Handle:</label>
-            <input type="text" id="xHandle" placeholder="e.g., davidstone" maxlength="15" value="@">
-            <span class="error" id="xHandleError">Handle must be 1-15 chars after @</span>
-            <label for="memberSince">Member Since:</label>
-            <select id="memberSince">
-                <option value="" disabled selected>Select Year</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-                <option value="2017">2017</option>
-                <option value="2018">2018</option>
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-                <option value="2021">2021</option>
-                <option value="2022">2022</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
-            </select>
-            <span class="error" id="memberSinceError">Please select a year</span>
-            <label for="role">Role (max 50 chars):</label>
-            <input type="text" id="role" placeholder="e.g., Serious Builder" maxlength="50">
-            <span class="error" id="roleError">Role is required</span>
-            <label for="photo">Upload Photo:</label>
-            <input type="file" id="photo" accept="image/*">
-            <span class="error" id="photoError">Invalid image format</span>
-            <button onclick="generateID()">Generate ID Card</button>
-            <button class="about-btn" onclick="openAboutModal()" aria-label="About this ID Card Generator">About</button>
+            <h1>Orange Dynasty ID Generator</h1>
+            <div class="form-group">
+                <label for="name">Name (max 50 chars)</label>
+                <input type="text" id="name" placeholder="e.g., John Doe" maxlength="50">
+                <span class="error" id="nameError">Name is required</span>
+                <span class="tooltip" title="Enter your full name">?</span>
+            </div>
+            <div class="form-group">
+                <label for="xHandle">X Handle</label>
+                <input type="text" id="xHandle" placeholder="e.g., @john_doe" maxlength="15" value="@">
+                <span class="error" id="xHandleError">Handle must be 1-15 chars after @</span>
+                <span class="tooltip" title="Your X (Twitter) handle starting with @">?</span>
+            </div>
+            <div class="form-group">
+                <label for="memberSince">Member Since</label>
+                <select id="memberSince">
+                    <option value="" disabled selected>Select Year</option>
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
+                <span class="error" id="memberSinceError">Please select a year</span>
+            </div>
+            <div class="form-group">
+                <label for="role">Role (max 50 chars)</label>
+                <input type="text" id="role" placeholder="e.g., Serious Builder" maxlength="50">
+                <span class="error" id="roleError">Role is required</span>
+                <span class="tooltip" title="Your role or title in the community">?</span>
+            </div>
+            <div class="form-group">
+                <label for="photo">Upload Photo</label>
+                <input type="file" id="photo" accept="image/*">
+                <span class="error" id="photoError">Invalid image format</span>
+            </div>
+            <button class="btn btn-primary" onclick="generateID()">Generate ID Card</button>
+            <button class="btn btn-secondary" onclick="openAboutModal()">About</button>
         </div>
         <div class="preview-container">
-            <h3>Live Preview</h3>
-            <div class="id-card preview" id="previewCard">
-                <div class="main-content">
-                    <div class="left-column">
-                        <div class="top-section">
-                            <div class="name-handle">
-                                <p class="name" id="previewNameDisplay">Name</p>
-                                <p class="handle" id="previewXHandleDisplay">@Handle</p>
-                            </div>
-                            <p class="id-number">ID: <span id="previewIdNumberDisplay">$SIGN</span></p>
-                        </div>
-                        <div class="details">
-                            <p>Member since: <span id="previewMemberSinceDisplay">Year</span></p>
-                            <p>Role: <span id="previewRoleDisplay">Role</span></p>
-                            <p>Card Issued: <span id="previewIssuedDisplay">YYYY-MM-DD</span></p>
-                            <p>Expiration: <span class="forever-signed" id="previewExpirationDisplay">FOREVER SIGNED</span></p>
-                        </div>
+            <h2>Live Preview</h2>
+            <div class="id-card" id="previewCard">
+                <div class="left-column">
+                    <div class="name" id="previewNameDisplay">Name</div>
+                    <div class="handle" id="previewXHandleDisplay">@Handle</div>
+                    <div class="id-number">ID: <span id="previewIdNumberDisplay">$SIGN</span></div>
+                    <div class="details">
+                        <p>Member since: <span id="previewMemberSinceDisplay">Year</span></p>
+                        <p>Role: <span id="previewRoleDisplay">Role</span></p>
+                        <p>Issued: <span id="previewIssuedDisplay">YYYY-MM-DD</span></p>
+                        <p>Expires: <span class="forever-signed" id="previewExpirationDisplay">FOREVER SIGNED</span></p>
                     </div>
-                    <div class="right-column">
-                        <div class="photo" id="previewPhotoDisplay">
-                            <span>Photo</span>
-                        </div>
-                        <svg class="barcode" id="previewBarcode"></svg>
-                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="photo" id="previewPhotoDisplay">Photo</div>
+                    <svg class="barcode" id="previewBarcode"></svg>
                 </div>
                 <div class="footer">
                     <div class="logo">
                         <img src="signicon.jpeg" alt="Sign Icon" loading="lazy" crossOrigin="anonymous">
-                        <span id="previewCommunityDisplay">Orange Dynasty</span>
+                        <span>Orange Dynasty</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal" id="modal" role="dialog" aria-label="ID Card Preview">
+    <div class="modal" id="cardModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeModal()" aria-label="Close">×</span>
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Your ID Card</h2>
             <div class="id-card" id="idCard">
-                <div class="main-content">
-                    <div class="left-column">
-                        <div class="top-section">
-                            <div class="name-handle">
-                                <p class="name" id="nameDisplay"></p>
-                                <p class="handle" id="xHandleDisplay"></p>
-                            </div>
-                            <p class="id-number">ID: <span id="idNumberDisplay">$SIGN</span></p>
-                        </div>
-                        <div class="details">
-                            <p>Member since: <span id="memberSinceDisplay"></span></p>
-                            <p>Role: <span id="roleDisplay"></span></p>
-                            <p>Card Issued: <span id="issuedDisplay"></span></p>
-                            <p>Expiration: <span class="forever-signed" id="expirationDisplay"></span></p>
-                        </div>
+                <div class="left-column">
+                    <div class="name" id="nameDisplay"></div>
+                    <div class="handle" id="xHandleDisplay"></div>
+                    <div class="id-number">ID: <span id="idNumberDisplay">$SIGN</span></div>
+                    <div class="details">
+                        <p>Member since: <span id="memberSinceDisplay"></span></p>
+                        <p>Role: <span id="roleDisplay"></span></p>
+                        <p>Issued: <span id="issuedDisplay"></span></p>
+                        <p>Expires: <span class="forever-signed" id="expirationDisplay"></span></p>
                     </div>
-                    <div class="right-column">
-                        <div class="photo" id="photoDisplay">
-                            <span>Photo Placeholder</span>
-                        </div>
-                        <svg class="barcode" id="barcode"></svg>
-                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="photo" id="photoDisplay">Photo</div>
+                    <svg class="barcode" id="barcode"></svg>
                 </div>
                 <div class="footer">
                     <div class="logo">
                         <img src="signicon.jpeg" alt="Sign Icon" loading="lazy" crossOrigin="anonymous">
-                        <span id="communityDisplay">Orange Dynasty</span>
+                        <span>Orange Dynasty</span>
                     </div>
                 </div>
             </div>
-            <div class="button-container">
-                <button class="share-btn" onclick="shareOnTwitter()">Copy Share Message</button>
-                <button class="direct-share-btn" onclick="directShareOnTwitter()">Share to X (Twitter)</button>
-                <button class="download-btn" onclick="downloadBlob()">Download</button>
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="downloadBlob()">Download</button>
+                <button class="btn btn-secondary" onclick="shareOnTwitter()">Share on X</button>
             </div>
-            <div class="download-note">
-                Click "Download" to save your ID card image.
-            </div>
-            <div class="share-message" id="shareMessage" style="display: none;">
-                <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
+            <div class="share-message" id="shareMessage">
+                Share message copied! Post it on X with your ID card.
             </div>
         </div>
     </div>
 
-    <div class="modal" id="aboutModal" role="dialog" aria-label="About ID Card Generator">
+    <div class="modal" id="aboutModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeAboutModal()" aria-label="Close">×</span>
-            <h3>About Orange Dynasty ID Generator</h3>
+            <span class="close-btn" onclick="closeAboutModal()">&times;</span>
+            <h2>About Orange Dynasty ID Generator</h2>
             <p>
-                This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
+                This fan-made ID card generator is a fun tribute to the Orange Dynasty community, inspired by the <a href="https://x.com/sign" target="_blank" rel="noopener">Sign Protocol (@Sign)</a>. It’s built for entertainment and does not offer official rewards or benefits.
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.
+                Created by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá</a>, this project celebrates Sign’s vision of trust and community engagement.
             </p>
             <p>
-                Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
+                Have fun generating your ID card and sharing it with #OrangeDynasty!
             </p>
         </div>
     </div>
 
-    <div class="modal" id="cropModal" role="dialog" aria-label="Crop Your Photo">
+    <div class="modal" id="cropModal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeCropModal()" aria-label="Close">×</span>
-            <h3>Crop Your Photo</h3>
+            <span class="close-btn" onclick="closeCropModal()">&times;</span>
+            <h2>Crop Your Photo</h2>
             <div class="cropper-container">
                 <img id="imageToCrop" alt="Image to crop">
             </div>
-            <button onclick="cropImage()">Crop and Use</button>
+            <button class="btn btn-primary" onclick="cropImage()">Crop & Use</button>
         </div>
     </div>
 
@@ -703,14 +566,11 @@
         let croppedImageData;
 
         function handleScriptError(scriptName) {
-            alert(`Failed to load ${scriptName}. Please check your internet connection or try again later.`);
+            alert(`Failed to load ${scriptName}. Please check your internet connection.`);
         }
 
         function formatDate(date) {
-            const year = date.getFullYear();
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const day = String(date.getDate()).padStart(2, '0');
-            return `${year}-${month}-${day}`;
+            return date.toISOString().split('T')[0];
         }
 
         function generateUniqueId() {
@@ -720,7 +580,7 @@
         function getFilename() {
             const name = document.getElementById('name').value.trim() || 'id-card';
             const timestamp = formatDate(new Date()).replace(/-/g, '');
-            return `id-card_${name}_${timestamp}.png`;
+            return `OrangeDynasty_ID_${name}_${timestamp}.png`;
         }
 
         function generateCanvas() {
@@ -758,8 +618,8 @@
                     URL.revokeObjectURL(url);
                 }, 'image/png');
             }).catch(error => {
-                console.error('Error generating canvas for download:', error);
-                alert('Failed to download image. Please try again.');
+                console.error('Download failed:', error);
+                alert('Failed to download ID card. Please try again.');
             });
         }
 
@@ -779,25 +639,24 @@
             document.getElementById('previewExpirationDisplay').textContent = 'FOREVER SIGNED';
 
             const photoDisplay = document.getElementById('previewPhotoDisplay');
-            photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}" crossOrigin="anonymous">` : '<span>Photo</span>';
+            photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}" crossOrigin="anonymous">` : 'Photo';
 
             if (typeof JsBarcode !== 'undefined') {
                 try {
-                    JsBarcode("#previewBarcode", generateUniqueId(), {
-                        format: "CODE128",
+                    JsBarcode('#previewBarcode', generateUniqueId(), {
+                        format: 'CODE128',
                         width: 2,
                         height: 40,
                         displayValue: false,
-                        background: "#ffffff",
-                        lineColor: "#000000"
+                        background: '#ffffff',
+                        lineColor: '#000000'
                     });
                 } catch (e) {
-                    console.warn('Failed to render preview barcode:', e);
-                    document.getElementById('previewBarcode').innerHTML = '<text>Barcode Unavailable</text>';
+                    console.warn('Preview barcode failed:', e);
+                    document.getElementById('previewBarcode').innerHTML = 'Barcode Unavailable';
                 }
             } else {
-                console.warn('JsBarcode is not defined. Skipping barcode rendering for preview.');
-                document.getElementById('previewBarcode').innerHTML = '<text>Barcode Unavailable</text>';
+                document.getElementById('previewBarcode').innerHTML = 'Barcode Unavailable';
             }
         }
 
@@ -807,14 +666,20 @@
             const memberSince = document.getElementById('memberSince').value;
             const role = document.getElementById('role').value.trim();
 
-            document.getElementById('nameError').style.display = !name ? 'block' : 'none';
-            document.getElementById('xHandleError').style.display = (xHandle.length <= 1 || !xHandle.startsWith('@')) ? 'block' : 'none';
-            document.getElementById('memberSinceError').style.display = !memberSince ? 'block' : 'none';
-            document.getElementById('roleError').style.display = !role ? 'block' : 'none';
+            const errors = [
+                { id: 'nameError', condition: !name, message: 'Name is required' },
+                { id: 'xHandleError', condition: xHandle.length <= 1 || !xHandle.startsWith('@'), message: 'Handle must be 1-15 chars after @' },
+                { id: 'memberSinceError', condition: !memberSince, message: 'Please select a year' },
+                { id: 'roleError', condition: !role, message: 'Role is required' }
+            ];
 
-            if (!name || xHandle.length <= 1 || !xHandle.startsWith('@') || !memberSince || !role) {
-                return;
-            }
+            let hasError = false;
+            errors.forEach(error => {
+                document.getElementById(error.id).style.display = error.condition ? 'block' : 'none';
+                if (error.condition) hasError = true;
+            });
+
+            if (hasError) return;
 
             const issuedDate = formatDate(new Date());
             const idNumber = generateUniqueId();
@@ -828,51 +693,44 @@
             document.getElementById('expirationDisplay').textContent = 'FOREVER SIGNED';
 
             const photoDisplay = document.getElementById('photoDisplay');
-            photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}" crossOrigin="anonymous">` : '<span>Photo Placeholder</span>';
+            photoDisplay.innerHTML = croppedImageData ? `<img src="${croppedImageData}" crossOrigin="anonymous">` : 'Photo';
 
             if (typeof JsBarcode !== 'undefined') {
                 try {
-                    JsBarcode("#barcode", idNumber, {
-                        format: "CODE128",
+                    JsBarcode('#barcode', idNumber, {
+                        format: 'CODE128',
                         width: 2,
                         height: 40,
                         displayValue: false,
-                        background: "#ffffff",
-                        lineColor: "#000000"
+                        background: '#ffffff',
+                        lineColor: '#000000'
                     });
                 } catch (e) {
-                    console.warn('Failed to render barcode:', e);
-                    document.getElementById('barcode').innerHTML = '<text>Barcode Unavailable</text>';
+                    console.warn('Barcode failed:', e);
+                    document.getElementById('barcode').innerHTML = 'Barcode Unavailable';
                 }
             } else {
-                console.warn('JsBarcode is not defined. Skipping barcode rendering.');
-                document.getElementById('barcode').innerHTML = '<text>Barcode Unavailable</text>';
+                document.getElementById('barcode').innerHTML = 'Barcode Unavailable';
             }
 
-            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('cardModal').style.display = 'flex';
         }
 
         function shareOnTwitter() {
             const name = document.getElementById('name').value.trim();
-            const message = `I'm proud to be a part of Orange Dynasty! Check out my ID card. #OrangeDynasty @OrangeDynasty ${name}`;
+            const message = `Proud to be part of Orange Dynasty! Here's my ID card. #OrangeDynasty @OrangeDynasty ${name}`;
             navigator.clipboard.writeText(message).then(() => {
                 const shareMessage = document.getElementById('shareMessage');
                 shareMessage.style.display = 'block';
                 setTimeout(() => {
                     shareMessage.style.display = 'none';
-                }, 3000);
+                    window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`, '_blank');
+                }, 2000);
             });
         }
 
-        function directShareOnTwitter() {
-            const name = document.getElementById('name').value.trim();
-            const message = `I'm proud to be a part of Orange Dynasty! Check out my ID card. #OrangeDynasty @OrangeDynasty ${name}`;
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-            window.open(twitterUrl, '_blank');
-        }
-
         function closeModal() {
-            document.getElementById('modal').style.display = 'none';
+            document.getElementById('cardModal').style.display = 'none';
         }
 
         function openAboutModal() {
@@ -916,9 +774,7 @@
                     img.src = event.target.result;
                     openCropModal();
                     setTimeout(() => {
-                        if (cropper) {
-                            cropper.destroy();
-                        }
+                        if (cropper) cropper.destroy();
                         cropper = new Cropper(img, {
                             aspectRatio: 1,
                             viewMode: 1,
