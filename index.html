@@ -159,6 +159,7 @@
             max-height: 90vh;
             overflow-y: auto;
             backdrop-filter: blur(5px);
+            margin: 0;
         }
         .modal-content h3 {
             color: #FF6200;
@@ -199,12 +200,13 @@
             border: 3px solid #FF6200;
             background: url('sign.jpeg') no-repeat center center;
             background-size: cover;
+            background-color: #0d1b2a;
             position: relative;
             z-index: 2;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            padding: 12px;
+            padding: 10px;
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
@@ -213,9 +215,11 @@
             position: absolute;
             top: 0;
             left: 0;
-            transform: none !important;
             margin: 0;
+            padding: 10px;
+            transform: none !important;
             z-index: 1001;
+            box-shadow: none;
         }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
@@ -226,7 +230,7 @@
             display: flex;
             flex: 1;
             z-index: 2;
-            gap: 10px;
+            gap: 8px;
         }
         .id-card .left-column {
             flex: 2;
@@ -728,7 +732,9 @@
                     useCORS: true,
                     width: 400,
                     height: 260,
-                    scale: 3
+                    x: 0,
+                    y: 0,
+                    scale: window.devicePixelRatio * 4
                 }).then(canvas => {
                     idCard.classList.remove('download-mode');
                     resolve(canvas);
