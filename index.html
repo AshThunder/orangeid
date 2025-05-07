@@ -26,7 +26,7 @@
             padding: 1.5rem;
         }
         .container {
-            max-width: 600px;
+            max-width: 400px;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -56,7 +56,6 @@
             box-shadow: 0 4px 15px rgba(255, 98, 0, 0.2);
             backdrop-filter: blur(6px);
             width: 100%;
-            max-width: 400px;
         }
         .form-container h1 {
             font-family: 'Orbitron', sans-serif;
@@ -202,21 +201,23 @@
             position: relative;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 6px;
-            padding: 8px;
+            grid-template-columns: 3fr 2fr;
+            gap: 4px;
+            padding: 10px;
             box-sizing: border-box;
             overflow: hidden;
             box-shadow: 0 0 12px rgba(255, 98, 0, 0.3);
             animation: borderGlow 2s infinite;
         }
         .id-card.download-mode {
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             margin: 0;
-            padding: 8px;
+            padding: 10px;
             transform: none !important;
+            width: 400px;
+            height: 260px;
             z-index: 1001;
             box-shadow: none;
         }
@@ -238,7 +239,7 @@
         }
         .id-card .name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.95rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #e0e0e0;
             text-shadow: 0 0 4px #FF6200;
@@ -247,7 +248,7 @@
             white-space: nowrap;
         }
         .id-card .handle {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             color: #FFA500;
             text-shadow: 0 0 3px #FF6200;
             overflow: hidden;
@@ -255,7 +256,7 @@
             white-space: nowrap;
         }
         .id-card .id-number {
-            font-size: 0.7rem;
+            font-size: 0.9rem;
             color: #e0e0e0;
             text-shadow: 0 0 3px #FF6200;
             text-align: right;
@@ -264,11 +265,11 @@
             white-space: nowrap;
         }
         .id-card .details p {
-            font-size: 0.6rem;
+            font-size: 0.75rem;
             color: #e0e0e0;
             background: rgba(255, 98, 0, 0.15);
             border: 1px solid #FF6200;
-            padding: 2px 4px;
+            padding: 3px 5px;
             border-radius: 3px;
             margin: 2px 0;
             overflow: hidden;
@@ -284,14 +285,14 @@
             -webkit-text-stroke: 0.5px #FF6200;
         }
         .id-card .photo {
-            width: 110px;
-            height: 130px;
+            width: 140px;
+            height: 160px;
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #FF6200;
             border: 2px solid #FF6200;
             box-shadow: 0 0 8px rgba(255, 98, 0, 0.3);
@@ -303,8 +304,8 @@
             border-radius: 4px;
         }
         .id-card .barcode {
-            width: 110px;
-            height: 70px;
+            width: 140px;
+            height: 80px;
             filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
         }
         .id-card .footer {
@@ -320,13 +321,363 @@
             gap: 5px;
         }
         .id-card .logo img {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
         }
         .id-card .logo span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.65rem;
+            font-size: 0.8rem;
+            color: #FF6200;
+            font-weight: 700;
+            text-shadow: 0 0 4px rgba(255, 98, 0, 0.5);
+        }
+        .preview-container .id-card {
+            transform: scale(0.6);
+            transform-origin: top center;
+        }
+        .button-group {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .share-message {
+            margin-top: 0.8rem;
+            font-size: 0.85rem;
+            color: #FF6200;
+            background: rgba(255, 98("="artifact_id="9b38ca8e-b964-47ae-9dbb-2f82bd2fd6b5" artifact_version_id="8e2f4a7b-9c1d-4f8a-b3e6-5f7c9b3e2a1c" title="index.html" contentType="text/html">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orange Dynasty ID Card Generator</title>
+    <link rel="preload" href="sign.jpeg" as="image">
+    <link rel="preload" href="signicon.jpeg" as="image">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0d1b2a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1.5rem;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .container::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 98, 0, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: pulse 8s infinite;
+        }
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 0.1; }
+            100% { opacity: 0.3; }
+        }
+        .form-container, .preview-container {
+            background: rgba(20, 33, 61, 0.9);
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(255, 98, 0, 0.2);
+            backdrop-filter: blur(6px);
+            width: 100%;
+        }
+        .form-container h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FF6200;
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 0 6px rgba(255, 98, 0, 0.5);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            font-size: 0.85rem;
+            color: #FF6200;
+            margin-bottom: 0.3rem;
+            display: block;
+            font-weight: 600;
+        }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 0.6rem;
+            border: 2px solid #FF6200;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 0.95rem;
+        }
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #FFA500;
+            box-shadow: 0 0 6px rgba(255, 165, 0, 0.3);
+        }
+        .form-group input[type="file"] {
+            padding: 0.2rem;
+        }
+        .form-group .error {
+            color: #FF6200;
+            font-size: 0.75rem;
+            margin-top: 0.2rem;
+            display: none;
+        }
+        .btn {
+            width: 100%;
+            padding: 0.7rem;
+            border: none;
+            border-radius: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-primary {
+            background: linear-gradient(45deg, #FF6200, #e55b00);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(45deg, #e55b00, #FF6200);
+            box-shadow: 0 0 10px rgba(255, 98, 0, 0.5);
+        }
+        .btn-secondary {
+            background: #00D4FF;
+            color: #fff;
+        }
+        .btn-secondary:hover {
+            background: #00b0d4;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+        .preview-container h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FF6200;
+            text-align: center;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .modal-content {
+            background: rgba(20, 33, 61, 0.9);
+            padding: 1.2rem;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.3);
+            backdrop-filter: blur(6px);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+        .modal-content h2 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FF6200;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .modal-content p {
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin-bottom: 0.8rem;
+        }
+        .modal-content a {
+            color: #FFA500;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .modal-content a:hover {
+            color: #e55b00;
+        }
+        .close-btn {
+            position: absolute;
+            top: 8px;
+            right: 12px;
+            font-size: 1.2rem;
+            color: #FF6200;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #e55b00;
+        }
+        .id-card {
+            width: 400px;
+            height: 260px;
+            aspect-ratio: 400 / 260;
+            max-width: 90vw;
+            border: 3px solid #FF6200;
+            background: url('sign.jpeg') no-repeat center center / cover;
+            background-color: #0d1b2a;
+            position: relative;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 3fr 2fr;
+            gap: 4px;
+            padding: 10px;
+            box-sizing: border-box;
+            overflow: hidden;
+            box-shadow: 0 0 12px rgba(255, 98, 0, 0.3);
+            animation: borderGlow 2s infinite;
+        }
+        .id-card.download-mode {
+            position: absolute;
+            top: 0;
+            left: 0;
+            margin: 0;
+            padding: 10px;
+            transform: none !important;
+            width: 400px;
+            height: 260px;
+            z-index: 1001;
+            box-shadow: none;
+        }
+        @keyframes borderGlow {
+            0% { border-color: #FF6200; }
+            50% { border-color: #FFA500; }
+            100% { border-color: #FF6200; }
+        }
+        .id-card .left-column {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .id-card .right-column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+        .id-card .name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #e0e0e0;
+            text-shadow: 0 0 4px #FF6200;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .handle {
+            font-size: 0.9rem;
+            color: #FFA500;
+            text-shadow: 0 0 3px #FF6200;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .id-number {
+            font-size: 0.9rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 3px #FF6200;
+            text-align: right;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .details p {
+            font-size: 0.75rem;
+            color: #e0e0e0;
+            background: rgba(255, 98, 0, 0.15);
+            border: 1px solid #FF6200;
+            padding: 3px 5px;
+            border-radius: 3px;
+            margin: 2px 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .id-card .details p span {
+            color: #FFA500;
+            font-weight: 600;
+        }
+        .id-card .details p span.forever-signed {
+            color: #fff;
+            -webkit-text-stroke: 0.5px #FF6200;
+        }
+        .id-card .photo {
+            width: 140px;
+            height: 160px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #FF6200;
+            border: 2px solid #FF6200;
+            box-shadow: 0 0 8px rgba(255, 98, 0, 0.3);
+        }
+        .id-card .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .id-card .barcode {
+            width: 140px;
+            height: 80px;
+            filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
+        }
+        .id-card .footer {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 6px;
+        }
+        .id-card .logo {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .id-card .logo img {
+            width: 22px;
+            height: 22px;
+            filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
+        }
+        .id-card .logo span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
             color: #FF6200;
             font-weight: 700;
             text-shadow: 0 0 4px rgba(255, 98, 0, 0.5);
@@ -360,7 +711,7 @@
         }
         @media (max-width: 600px) {
             body { padding: 1rem; }
-            .form-container, .preview-container { padding: 1rem; max-width: 100%; }
+            .form-container, .preview-container { padding: 1rem; }
             .form-container h1 { font-size: 1.4rem; }
             .preview-container h2 { font-size: 1.2rem; }
             .form-group input, .form-group select { font-size: 0.9rem; padding: 0.5rem; }
@@ -368,25 +719,25 @@
             .id-card {
                 transform: scale(0.9);
             }
-            .id-card .name { font-size: 0.9rem; }
-            .id-card .handle, .id-card .id-number { font-size: 0.65rem; }
-            .id-card .details p { font-size: 0.55rem; }
-            .id-card .photo { width: 100px; height: 120px; }
-            .id-card .barcode { width: 100px; height: 64px; }
-            .id-card .logo img { width: 16px; height: 16px; }
-            .id-card .logo span { font-size: 0.6rem; }
+            .id-card .name { font-size: 1.1rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.85rem; }
+            .id-card .details p { font-size: 0.7rem; }
+            .id-card .photo { width: 130px; height: 150px; }
+            .id-card .barcode { width: 130px; height: 75px; }
+            .id-card .logo img { width: 20px; height: 20px; }
+            .id-card .logo span { font-size: 0.75rem; }
         }
         @media (max-width: 400px) {
             .id-card {
                 transform: scale(0.8);
             }
-            .id-card .name { font-size: 0.85rem; }
-            .id-card .handle, .id-card .id-number { font-size: 0.6rem; }
-            .id-card .details p { font-size: 0.5rem; }
-            .id-card .photo { width: 90px; height: 108px; }
-            .id-card .barcode { width: 90px; height: 58px; }
-            .id-card .logo img { width: 14px; height: 14px; }
-            .id-card .logo span { font-size: 0.55rem; }
+            .id-card .name { font-size: 1rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.8rem; }
+            .id-card .details p { font-size: 0.65rem; }
+            .id-card .photo { width: 120px; height: 140px; }
+            .id-card .barcode { width: 120px; height: 70px; }
+            .id-card .logo img { width: 18px; height: 18px; }
+            .id-card .logo span { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -615,7 +966,7 @@
                     JsBarcode('#previewBarcode', generateUniqueId(), {
                         format: 'CODE128',
                         width: 2,
-                        height: 40,
+                        height: 50,
                         displayValue: false,
                         background: '#ffffff',
                         lineColor: '#000000'
@@ -669,7 +1020,7 @@
                     JsBarcode('#barcode', idNumber, {
                         format: 'CODE128',
                         width: 2,
-                        height: 40,
+                        height: 50,
                         displayValue: false,
                         background: '#ffffff',
                         lineColor: '#000000'
@@ -725,8 +1076,8 @@
         function cropImage() {
             if (cropper) {
                 const canvas = cropper.getCroppedCanvas({
-                    width: 150,
-                    height: 150
+                    width: 200,
+                    height: 200
                 });
                 croppedImageData = canvas.toDataURL('image/png');
                 updatePreview();
