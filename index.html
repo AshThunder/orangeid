@@ -204,7 +204,7 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            padding: 15px;
+            padding: 18px;
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
@@ -248,12 +248,16 @@
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
             margin: 0;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
         .id-card .handle {
             font-size: 0.875rem;
             color: #00D4FF;
             text-shadow: 0 0 5px #00D4FF;
             margin: 5px 0 0 0;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
         .id-card .id-number {
             font-size: 0.875rem;
@@ -262,12 +266,14 @@
         }
         .id-card .details p {
             margin: 5px 0;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: #e0e0e0;
             text-shadow: 0 0 5px #00D4FF;
             border: 1px solid white;
             padding: 3px 5px;
             border-radius: 4px;
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
         .id-card .details p span {
             font-weight: 700;
@@ -308,11 +314,13 @@
             justify-content: center;
             align-items: center;
             margin-top: 10px;
+            padding-bottom: 5px;
             z-index: 2;
         }
         .id-card .logo {
             display: flex;
             align-items: center;
+            max-width: 90%;
         }
         .id-card .logo img {
             width: 30px;
@@ -321,10 +329,12 @@
             filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
         }
         .id-card .logo span {
-            font-size: 0.875rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: #FF6200;
             text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
+            overflow-wrap: break-word;
+            word-break: break-word;
         }
         .preview-container {
             width: 200px;
@@ -431,6 +441,18 @@
             .form-container button, .about-btn, #cropModal button {
                 font-size: 14px;
                 padding: 10px;
+            }
+            .id-card .name {
+                font-size: 1rem;
+            }
+            .id-card .handle, .id-card .id-number {
+                font-size: 0.8rem;
+            }
+            .id-card .details p {
+                font-size: 0.65rem;
+            }
+            .id-card .logo span {
+                font-size: 0.7rem;
             }
             .button-container {
                 flex-direction: column;
