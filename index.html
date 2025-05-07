@@ -197,9 +197,8 @@
             height: 260px;
             max-width: 90vw;
             border: 3px solid #FF6200;
-            background: url('sign.jpeg');
+            background: url('sign.jpeg') no-repeat center center;
             background-size: cover;
-            background-position: center;
             position: relative;
             z-index: 2;
             margin: 0 auto;
@@ -210,13 +209,18 @@
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
         }
+        .id-card.download-mode {
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: none !important;
+            margin: 0;
+            z-index: 1001;
+        }
         @keyframes borderScan {
             0% { border-color: #FF6200; }
             50% { border-color: #00D4FF; }
             100% { border-color: #FF6200; }
-        }
-        .id-card.download-mode::before {
-            content: none;
         }
         .id-card .main-content {
             display: flex;
@@ -722,8 +726,8 @@
                 html2canvas(idCard, {
                     backgroundColor: null,
                     useCORS: true,
-                    width: idCard.offsetWidth,
-                    height: idCard.offsetHeight,
+                    width: 400,
+                    height: 260,
                     scale: 3
                 }).then(canvas => {
                     idCard.classList.remove('download-mode');
