@@ -193,8 +193,9 @@
             color: #e55b00;
         }
         .id-card {
-            width: min(400px, 90vw);
-            height: min(260px, 58vw);
+            width: 400px;
+            height: 260px;
+            max-width: 90vw;
             border: 3px solid #FF6200;
             background: url('sign.jpeg');
             background-size: cover;
@@ -204,7 +205,7 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            padding: 18px;
+            padding: 12px;
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
             animation: borderScan 3s infinite;
@@ -221,6 +222,7 @@
             display: flex;
             flex: 1;
             z-index: 2;
+            gap: 10px;
         }
         .id-card .left-column {
             flex: 2;
@@ -233,47 +235,53 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .id-card .top-section {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             z-index: 2;
         }
         .id-card .name {
-            font-size: 1.125rem;
+            font-size: 16px;
             font-weight: 700;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200, 0 0 10px #FF6200;
             margin: 0;
-            overflow-wrap: break-word;
-            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .id-card .handle {
-            font-size: 0.875rem;
+            font-size: 12px;
             color: #00D4FF;
             text-shadow: 0 0 5px #00D4FF;
-            margin: 5px 0 0 0;
-            overflow-wrap: break-word;
-            word-break: break-word;
+            margin: 4px 0 0 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .id-card .id-number {
-            font-size: 0.875rem;
+            font-size: 12px;
             color: #e0e0e0;
             text-shadow: 0 0 5px #FF6200;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .id-card .details p {
-            margin: 5px 0;
-            font-size: 0.7rem;
+            margin: 4px 0;
+            font-size: 10px;
             color: #e0e0e0;
             text-shadow: 0 0 5px #00D4FF;
             border: 1px solid white;
-            padding: 3px 5px;
+            padding: 2px 4px;
             border-radius: 4px;
-            overflow-wrap: break-word;
-            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .id-card .details p span {
             font-weight: 700;
@@ -313,28 +321,29 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 10px;
-            padding-bottom: 5px;
+            margin-top: 8px;
             z-index: 2;
         }
         .id-card .logo {
             display: flex;
             align-items: center;
-            max-width: 90%;
+            max-width: 80%;
         }
         .id-card .logo img {
-            width: 30px;
-            height: 30px;
-            margin-right: 8px;
+            width: 24px;
+            height: 24px;
+            margin-right: 6px;
             filter: drop-shadow(0 0 12px rgba(255, 98, 0, 0.7));
+            object-fit: contain;
         }
         .id-card .logo span {
-            font-size: 0.75rem;
+            font-size: 10px;
             font-weight: 700;
             color: #FF6200;
             text-shadow: 0 0 10px rgba(0, 212, 255, 0.8);
-            overflow-wrap: break-word;
-            word-break: break-word;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
         .preview-container {
             width: 200px;
@@ -429,6 +438,36 @@
             background: #e55b00;
             box-shadow: 0 0 15px rgba(255, 98, 0, 0.7);
         }
+        @media (max-width: 600px) {
+            .id-card {
+                transform: scale(0.9);
+                transform-origin: center;
+            }
+            .id-card .name {
+                font-size: 14px;
+            }
+            .id-card .handle, .id-card .id-number {
+                font-size: 11px;
+            }
+            .id-card .details p {
+                font-size: 9px;
+            }
+            .id-card .photo {
+                width: 90px;
+                height: 108px;
+            }
+            .id-card .barcode {
+                width: 90px;
+                height: 54px;
+            }
+            .id-card .logo img {
+                width: 22px;
+                height: 22px;
+            }
+            .id-card .logo span {
+                font-size: 9px;
+            }
+        }
         @media (max-width: 400px) {
             .form-container, .preview-container {
                 width: 100%;
@@ -442,21 +481,61 @@
                 font-size: 14px;
                 padding: 10px;
             }
+            .id-card {
+                transform: scale(0.8);
+            }
             .id-card .name {
-                font-size: 1rem;
+                font-size: 12px;
             }
             .id-card .handle, .id-card .id-number {
-                font-size: 0.8rem;
+                font-size: 10px;
             }
             .id-card .details p {
-                font-size: 0.65rem;
+                font-size: 8px;
+            }
+            .id-card .photo {
+                width: 80px;
+                height: 96px;
+            }
+            .id-card .barcode {
+                width: 80px;
+                height: 48px;
+            }
+            .id-card .logo img {
+                width: 20px;
+                height: 20px;
             }
             .id-card .logo span {
-                font-size: 0.7rem;
+                font-size: 8px;
             }
-            .button-container {
-                flex-direction: column;
-                gap: 10px;
+        }
+        @media (max-width: 320px) {
+            .id-card {
+                transform: scale(0.7);
+            }
+            .id-card .name {
+                font-size: 11px;
+            }
+            .id-card .handle, .id-card .id-number {
+                font-size: 9px;
+            }
+            .id-card .details p {
+                font-size: 7px;
+            }
+            .id-card .photo {
+                width: 70px;
+                height: 84px;
+            }
+            .id-card .barcode {
+                width: 70px;
+                height: 42px;
+            }
+            .id-card .logo img {
+                width: 18px;
+                height: 18px;
+            }
+            .id-card .logo span {
+                font-size: 7px;
             }
         }
     </style>
@@ -573,7 +652,7 @@
                 <button class="download-btn" onclick="downloadBlob()">Download</button>
             </div>
             <div class="download-note">
-                If the ID card doesn't display properly, rotate device and download in landscape mode.
+                Click "Download" to save your ID card image.
             </div>
             <div class="share-message" id="shareMessage" style="display: none;">
                 <p>Message copied! Share it on X (Twitter) with your downloaded ID card image.</p>
