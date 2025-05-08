@@ -239,9 +239,13 @@
             line-height: 1.6;
             margin-bottom: 0.6rem;
         }
-        .modal-content a {
+        #aboutModal .modal-content a {
+            color: #FF6200;
             text-decoration: none;
             font-weight: 700;
+        }
+        #aboutModal .modal-content a:hover {
+            color: #FFA500;
         }
         .close-btn {
             position: absolute;
@@ -702,7 +706,7 @@
                 This ID card generator is a fan-made project, not official from the Sign Protocol team <a href="https://x.com/sign" target="_blank" rel="noopener">(@Sign)</a>. It’s all for fun — no rewards or perks guaranteed!
             </p>
             <p>
-                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.</a>.
+                Orange Dynasty ID generator is built by <a href="https://x.com/ChrisGold__" target="_blank" rel="noopener">Chris Gold</a> and <a href="https://x.com/PrinceWarexy" target="_blank" rel="noopener">Ọlá (blue tick)</a> for the Orange Dynasty community as a fun, creative project to celebrate Sign's vision of verifiable trust.
             </p>
             <p>
                 Generating an ID card is purely for entertainment and does not entitle or guarantee any rewards, recognition, or benefits from <a href="https://x.com/sign" target="_blank" rel="noopener">Sign</a>.
@@ -897,7 +901,7 @@
 
         function shareOnTwitter() {
             const name = document.getElementById('name').value.trim();
-            const message = `Proud to be part of Orange Dynasty! Here's my ID card. #OrangeDynasty @OrangeDynasty ${name}`;
+            const message = `Proud to be part of Orange Dynasty! Here's my ID card.  to celebrate @Sign's vision of verifiable trust. Join the movement! 🧡🟠🧡🟠 #SignID $SIGN"`;
             navigator.clipboard.writeText(message).then(() => {
                 const shareMessage = document.getElementById('shareMessage');
                 shareMessage.style.display = 'block';
