@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Orange Dynasty ID Card Generator</title>
     <link rel="preload" href="sign.jpeg" as="image">
     <link rel="preload" href="signicon.jpeg" as="image">
@@ -24,6 +24,7 @@
             flex-direction: column;
             align-items: center;
             padding: 1.5rem;
+            overflow-x: hidden;
         }
         .container {
             max-width: 400px;
@@ -194,10 +195,12 @@
             width: 400px;
             height: 260px;
             aspect-ratio: 400 / 260;
-            max-width: 90vw;
+            max-width: 100%;
+            max-height: 100%;
             border: 3px solid #FF6200;
             background: url('sign.jpeg') no-repeat center center / cover;
             background-color: #0d1b2a;
+            background-size: 100% 100%;
             position: relative;
             margin: 0 auto;
             display: grid;
@@ -210,7 +213,7 @@
             animation: borderGlow 2s infinite;
         }
         .id-card.download-mode {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             margin: 0;
@@ -220,6 +223,7 @@
             height: 260px;
             z-index: 1001;
             box-shadow: none;
+            overflow: hidden;
         }
         @keyframes borderGlow {
             0% { border-color: #FF6200; }
@@ -239,7 +243,7 @@
         }
         .id-card .name {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1rem;
+            font-size: 1.2rem;
             font-weight: 700;
             color: #e0e0e0;
             text-shadow: 0 0 4px #FF6200;
@@ -249,7 +253,7 @@
         }
         .id-card .handle {
             font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             color: #FFA500;
             text-shadow: 0 0 3px #FF6200;
             overflow: hidden;
@@ -258,7 +262,7 @@
         }
         .id-card .id-number {
             font-family: 'Inter', sans-serif;
-            font-size: 0.8rem;
+            font-size: 0.95rem;
             color: #e0e0e0;
             text-shadow: 0 0 3px #FF6200;
             text-align: right;
@@ -268,11 +272,11 @@
         }
         .id-card .details p {
             font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             color: #e0e0e0;
             background: rgba(255, 98, 0, 0.15);
             border: 1px solid #FF6200;
-            padding: 2px 4px;
+            padding: 3px 5px;
             border-radius: 3px;
             margin: 2px 0;
             overflow: hidden;
@@ -288,14 +292,14 @@
             -webkit-text-stroke: 0.5px #FF6200;
         }
         .id-card .photo {
-            width: 120px;
-            height: 140px;
+            width: 130px;
+            height: 150px;
             border-radius: 6px;
             background: rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: #FF6200;
             border: 2px solid #FF6200;
             box-shadow: 0 0 8px rgba(255, 98, 0, 0.3);
@@ -307,8 +311,8 @@
             border-radius: 4px;
         }
         .id-card .barcode {
-            width: 120px;
-            height: 60px;
+            width: 130px;
+            height: 70px;
             filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
         }
         .id-card .footer {
@@ -324,13 +328,13 @@
             gap: 5px;
         }
         .id-card .logo img {
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
             filter: drop-shadow(0 0 6px rgba(255, 98, 0, 0.4));
         }
         .id-card .logo span {
             font-family: 'Orbitron', sans-serif;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             color: #FF6200;
             font-weight: 700;
             text-shadow: 0 0 4px #FF6200;
@@ -370,27 +374,51 @@
             .form-group input, .form-group select { font-size: 0.9rem; padding: 0.5rem; }
             .btn { font-size: 0.9rem; padding: 0.6rem; }
             .id-card {
-                transform: scale(0.9);
+                padding: 6px;
+                gap: 2px;
+                transform: scale(1);
+                max-width: 400px;
             }
-            .id-card .name { font-size: 0.95rem; }
-            .id-card .handle, .id-card .id-number { font-size: 0.75rem; }
-            .id-card .details p { font-size: 0.65rem; }
-            .id-card .photo { width: 110px; height: 130px; }
-            .id-card .barcode { width: 110px; height: 55px; }
-            .id-card .logo img { width: 18px; height: 18px; }
-            .id-card .logo span { font-size: 0.65rem; }
+            .id-card.download-mode {
+                transform: none !important;
+                width: 400px;
+                height: 260px;
+            }
+            .id-card .left-column, .id-card .right-column {
+                gap: 3px;
+            }
+            .id-card .name { font-size: 1.1rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.9rem; }
+            .id-card .details p { font-size: 0.75rem; }
+            .id-card .photo { width: 120px; height: 140px; }
+            .id-card .barcode { width: 120px; height: 65px; }
+            .id-card .logo img { width: 22px; height: 22px; }
+            .id-card .logo span { font-size: 0.8rem; }
+            .preview-container .id-card {
+                transform: scale(0.85);
+            }
         }
         @media (max-width: 400px) {
             .id-card {
-                transform: scale(0.8);
+                padding: 6px;
+                gap: 2px;
+                transform: scale(1);
             }
-            .id-card .name { font-size: 0.9rem; }
-            .id-card .handle, .id-card .id-number { font-size: 0.7rem; }
-            .id-card .details p { font-size: 0.6rem; }
-            .id-card .photo { width: 100px; height: 120px; }
-            .id-card .barcode { width: 100px; height: 50px; }
-            .id-card .logo img { width: 16px; height: 16px; }
-            .id-card .logo span { font-size: 0.6rem; }
+            .id-card.download-mode {
+                transform: none !important;
+                width: 400px;
+                height: 260px;
+            }
+            .id-card .name { font-size: 1rem; }
+            .id-card .handle, .id-card .id-number { font-size: 0.85rem; }
+            .id-card .details p { font-size: 0.7rem; }
+            .id-card .photo { width: 110px; height: 130px; }
+            .id-card .barcode { width: 110px; height: 60px; }
+            .id-card .logo img { width: 20px; height: 20px; }
+            .id-card .logo span { font-size: 0.75rem; }
+            .preview-container .id-card {
+                transform: scale(0.75);
+            }
         }
     </style>
 </head>
@@ -562,12 +590,12 @@
                 idCard.classList.add('download-mode');
                 html2canvas(idCard, {
                     backgroundColor: null,
-                    useCor: true,
+                    useCORS: true,
                     width: 400,
                     height: 260,
                     x: 0,
                     y: 0,
-                    scale: window.devicePixelRatio
+                    scale: Math.min(window.devicePixelRatio, 2)
                 }).then(canvas => {
                     idCard.classList.remove('download-mode');
                     resolve(canvas);
@@ -619,7 +647,7 @@
                     JsBarcode('#previewBarcode', generateUniqueId(), {
                         format: 'CODE128',
                         width: 2,
-                        height: 40,
+                        height: 50,
                         displayValue: false,
                         background: '#ffffff',
                         lineColor: '#000000'
@@ -673,7 +701,7 @@
                     JsBarcode('#barcode', idNumber, {
                         format: 'CODE128',
                         width: 2,
-                        height: 40,
+                        height: 50,
                         displayValue: false,
                         background: '#ffffff',
                         lineColor: '#000000'
@@ -729,8 +757,8 @@
         function cropImage() {
             if (cropper) {
                 const canvas = cropper.getCroppedCanvas({
-                    width: 180,
-                    height: 180
+                    width: 200,
+                    height: 200
                 });
                 croppedImageData = canvas.toDataURL('image/png');
                 updatePreview();
