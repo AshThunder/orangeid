@@ -6,6 +6,7 @@
     <title>Orange Dynasty ID Card Generator</title>
     <link rel="preload" href="sign.jpeg" as="image">
     <link rel="preload" href="signicon.jpeg" as="image">
+    <link rel="preload" href="diamond.jpeg" as="image">
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/cropperjs@1.5.12/dist/cropper.min.css" rel="stylesheet">
@@ -278,7 +279,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         .id-card .name {
             font-family: 'Orbitron', sans-serif;
@@ -318,6 +319,9 @@
         .id-card .details p span {
             font-weight: 700;
         }
+        .id-card .details p .forever-signed {
+            color: #FF6200;
+        }
         .id-card .photo {
             width: 100px;
             height: 120px;
@@ -341,6 +345,17 @@
             width: 100px;
             height: 60px;
             filter: drop-shadow(0 0 8px rgba(255, 98, 0, 0.5));
+        }
+        .id-card .diamond {
+            width: 40px;
+            height: 40px;
+            margin-top: 10px;
+            filter: drop-shadow(0 0 8px rgba(255, 98, 0, 0.5));
+        }
+        .id-card .diamond img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
         .id-card .logo {
             display: flex;
@@ -491,6 +506,7 @@
             .id-card .details p { font-size: 0.7rem; }
             .id-card .photo { width: 80px; height: 96px; }
             .id-card .barcode { width: 80px; height: 48px; }
+            .id-card .diamond { width: 36px; height: 36px; }
             .id-card .logo img { width: 27px; height: 27px; }
             .id-card .logo span { font-size: 0.8rem; }
             .preview-container .id-card { transform: scale(0.45); }
@@ -528,6 +544,7 @@
             .id-card .details p { font-size: 0.65rem; }
             .id-card .photo { width: 70px; height: 84px; }
             .id-card .barcode { width: 70px; height: 42px; }
+            .id-card .diamond { width: 32px; height: 32px; }
             .id-card .logo img { width: 24px; height: 24px; }
             .id-card .logo span { font-size: 0.75rem; }
             .preview-container .id-card { transform: scale(0.4); }
@@ -621,6 +638,9 @@
                 <div class="right-column">
                     <div class="photo" id="previewPhotoDisplay">Photo</div>
                     <svg class="barcode" id="previewBarcode"></svg>
+                    <div class="diamond">
+                        <img src="diamond.jpeg" alt="Diamond Icon" loading="lazy" crossOrigin="anonymous">
+                    </div>
                 </div>
             </div>
         </div>
@@ -649,6 +669,9 @@
                 <div class="right-column">
                     <div class="photo" id="photoDisplay">Photo</div>
                     <svg class="barcode" id="barcode"></svg>
+                    <div class="diamond">
+                        <img src="diamond.jpeg" alt="Diamond Icon" loading="lazy" crossOrigin="anonymous">
+                    </div>
                 </div>
             </div>
             <div class="button-group">
