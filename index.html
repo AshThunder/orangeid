@@ -27,15 +27,16 @@
             padding: 20px;
             max-width: 100vw;
             overflow-x: hidden;
+            overflow-y: auto;
         }
         .container {
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 30px;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
             position: relative;
             animation: gradientShift 10s infinite linear;
             background: linear-gradient(45deg, #FF6200, #FFA500, #e55b00);
@@ -61,12 +62,20 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 98, 0, 0.3);
-            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(255, 98, 0, 0.2);
-            width: 340px;
+            width: 100%;
+            max-width: 420px;
             position: relative;
             z-index: 1;
+        }
+        .form-container {
+            padding: 20px;
+            min-height: 400px;
+        }
+        .preview-container {
+            padding: 20px;
+            min-height: 320px;
         }
         .form-container h1 {
             font-family: 'Orbitron', sans-serif;
@@ -79,8 +88,8 @@
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
             text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 20px;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -186,7 +195,8 @@
             justify-content: center;
             align-items: center;
             animation: slideIn 0.3s ease;
-            overflow-x: hidden;
+            overflow-x: auto;
+            overflow-y: auto;
         }
         @keyframes slideIn {
             from { transform: translateY(50px); opacity: 0; }
@@ -194,8 +204,10 @@
         }
         .modal-content {
             width: 100%;
-            max-width: 400px;
-            padding: 40px;
+            max-width: 420px;
+            min-width: 280px;
+            min-height: 400px;
+            padding: 20px;
             background: rgba(20, 33, 61, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -205,17 +217,22 @@
             text-align: center;
             position: relative;
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow: visible;
         }
         #aboutModal .modal-content {
             max-width: 500px;
             width: 90vw;
-            padding: 30px;
+            padding: 20px;
+            min-height: auto;
         }
         .modal-content h2 {
             font-family: 'Orbitron', sans-serif;
             font-weight: 700;
-            font-size: 1.3rem;
-            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
         }
         .modal-content p {
             font-size: 14px;
@@ -228,9 +245,9 @@
         }
         .close-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 28px;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
             cursor: pointer;
             transition: color 0.3s ease;
         }
@@ -269,6 +286,9 @@
             z-index: 1001;
             box-shadow: none;
             overflow: hidden;
+        }
+        #cardModal .id-card, .preview-container .id-card {
+            transform: none;
         }
         .id-card .left-column {
             display: flex;
@@ -378,26 +398,18 @@
             text-overflow: ellipsis;
             white-space: nowrap;
         }
-        .preview-container {
-            width: 100%;
-            max-width: 200px;
-        }
-        .preview-container .id-card {
-            transform: scale(0.5);
-            transform-origin: top left;
-        }
         .button-group {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 10px;
+            margin-top: 10px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .share-message {
-            margin-top: 15px;
+            margin-top: 10px;
             font-size: 14px;
             background: rgba(255, 98, 0, 0.15);
-            padding: 10px;
+            padding: 8px;
             border-radius: 6px;
             display: none;
         }
@@ -478,27 +490,24 @@
             body { padding: 10px; }
             .container { padding: 10px; }
             .form-container, .preview-container { 
-                padding: 15px; 
-                width: 100%;
-                max-width: 340px;
+                padding: 10px; 
+                max-width: 420px;
             }
+            .form-container { min-height: 360px; }
+            .preview-container { min-height: 300px; }
             .modal-content { 
-                padding: 20px; 
-                max-width: 360px;
+                padding: 10px; 
+                max-width: 420px;
+                min-height: 360px;
             }
             .form-container h1 { font-size: 1.3rem; }
-            .preview-container h2 { font-size: 1.1rem; }
+            .preview-container h2 { font-size: 1rem; }
+            .modal-content h2 { font-size: 1.1rem; }
             .form-group input, .form-group select { font-size: 12px; padding: 8px; }
             .btn { font-size: 14px; padding: 10px; }
             .id-card {
                 padding: 10px;
                 gap: 2px;
-                transform: scale(0.85);
-            }
-            .id-card.download-mode {
-                transform: none !important;
-                width: 400px;
-                height: 260px;
             }
             .id-card .left-column, .id-card .right-column { gap: 8px; }
             .id-card .name { font-size: 1rem; }
@@ -509,18 +518,19 @@
             .id-card .diamond { width: 36px; height: 36px; }
             .id-card .logo img { width: 27px; height: 27px; }
             .id-card .logo span { font-size: 0.8rem; }
-            .preview-container .id-card { transform: scale(0.45); }
             .cropper-container { padding: 15px; }
         }
         @media (max-width: 400px) {
             .form-container, .preview-container {
-                width: 100%;
-                max-width: 320px;
-                padding: 15px;
+                max-width: 420px;
+                padding: 10px;
             }
+            .form-container { min-height: 340px; }
+            .preview-container { min-height: 280px; }
             .modal-content {
-                padding: 15px;
-                max-width: 320px;
+                padding: 8px;
+                max-width: 420px;
+                min-height: 340px;
             }
             .form-group input, .form-group select {
                 font-size: 12px;
@@ -532,12 +542,6 @@
             }
             .id-card {
                 padding: 8px;
-                transform: scale(0.75);
-            }
-            .id-card.download-mode {
-                transform: none !important;
-                width: 400px;
-                height: 260px;
             }
             .id-card .name { font-size: 0.95rem; }
             .id-card .handle, .id-card .id-number { font-size: 0.75rem; }
@@ -547,7 +551,6 @@
             .id-card .diamond { width: 32px; height: 32px; }
             .id-card .logo img { width: 24px; height: 24px; }
             .id-card .logo span { font-size: 0.75rem; }
-            .preview-container .id-card { transform: scale(0.4); }
             .cropper-container {
                 padding: 15px;
                 max-width: 90vw;
@@ -562,7 +565,7 @@
             }
             .button-group {
                 flex-direction: column;
-                gap: 10px;
+                gap: 8px;
             }
         }
     </style>
@@ -591,7 +594,7 @@
                     <option value="2018">2018</option>
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
-                    <option value="2021">2021</option>
+                    <option value="2015">2021</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
                     <option value="2024">2024</option>
