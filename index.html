@@ -55,7 +55,7 @@
             background: rgba(13, 27, 42, 0.95);
             z-index: 0;
         }
-        .form-container, .preview-container, .modal-content {
+        .form-container, .preview-container {
             background: rgba(20, 33, 61, 0.7);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
@@ -185,15 +185,25 @@
             justify-content: center;
             align-items: center;
             animation: slideIn 0.3s ease;
+            overflow-x: hidden;
         }
         @keyframes slideIn {
             from { transform: translateY(50px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         .modal-content {
-            width: min(500px, 90vw);
+            width: 100%;
+            max-width: 400px;
             padding: 40px;
+            background: rgba(20, 33, 61, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 98, 0, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(255, 98, 0, 0.2);
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
         #aboutModal .modal-content {
             max-width: 500px;
@@ -224,22 +234,24 @@
             transition: color 0.3s ease;
         }
         .id-card {
-            width: min(400px, 90vw);
-            height: min(260px, 58vw);
-            border: 3px solid #FF6200;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 400 / 260;
+            border: 2px solid #FF6200;
             background: url('sign.jpeg') no-repeat center center / cover;
             background-color: #0d1b2a;
             background-size: 100% 100%;
             position: relative;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr 1fr;
+            grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
             gap: 4px;
             padding: 15px;
             overflow: hidden;
             box-shadow: 0 0 15px rgba(255, 98, 0, 0.3);
             animation: neonGlow 2s infinite;
             transition: transform 0.3s ease;
+            overflow-x: hidden;
         }
         .id-card:hover {
             transform: perspective(1000px) rotateY(5deg);
@@ -352,7 +364,8 @@
             white-space: nowrap;
         }
         .preview-container {
-            width: 200px;
+            width: 100%;
+            max-width: 200px;
         }
         .preview-container .id-card {
             transform: scale(0.5);
@@ -374,11 +387,17 @@
             display: none;
         }
         .cropper-container {
+            width: 100%;
             max-width: 600px;
-            width: 90vw;
             max-height: 80vh;
             padding: 20px;
             margin: 0;
+            background: rgba(20, 33, 61, 0.7);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 98, 0, 0.3);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(255, 98, 0, 0.2);
         }
         .cropper-image-container {
             max-height: 400px;
@@ -441,18 +460,25 @@
             100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
         @media (max-width: 600px) {
-            body { padding: 15px; }
-            .container { padding: 15px; }
-            .form-container, .preview-container { padding: 15px; }
+            body { padding: 10px; }
+            .container { padding: 10px; }
+            .form-container, .preview-container { 
+                padding: 15px; 
+                width: 100%;
+                max-width: 340px;
+            }
+            .modal-content { 
+                padding: 20px; 
+                max-width: 360px;
+            }
             .form-container h1 { font-size: 1.3rem; }
             .preview-container h2 { font-size: 1.1rem; }
             .form-group input, .form-group select { font-size: 12px; padding: 8px; }
             .btn { font-size: 14px; padding: 10px; }
             .id-card {
-                padding: 12px;
+                padding: 10px;
                 gap: 2px;
-                max-width: 100%;
-                transform: scale(0.9);
+                transform: scale(0.85);
             }
             .id-card.download-mode {
                 transform: none !important;
@@ -463,18 +489,22 @@
             .id-card .name { font-size: 1rem; }
             .id-card .handle, .id-card .id-number { font-size: 0.8rem; }
             .id-card .details p { font-size: 0.7rem; }
-            .id-card .photo { width: 90px; height: 108px; }
-            .id-card .barcode { width: 90px; height: 54px; }
+            .id-card .photo { width: 80px; height: 96px; }
+            .id-card .barcode { width: 80px; height: 48px; }
             .id-card .logo img { width: 27px; height: 27px; }
             .id-card .logo span { font-size: 0.8rem; }
             .preview-container .id-card { transform: scale(0.45); }
-            .modal-content { width: 90%; }
             .cropper-container { padding: 15px; }
         }
         @media (max-width: 400px) {
             .form-container, .preview-container {
                 width: 100%;
+                max-width: 320px;
                 padding: 15px;
+            }
+            .modal-content {
+                padding: 15px;
+                max-width: 320px;
             }
             .form-group input, .form-group select {
                 font-size: 12px;
@@ -485,8 +515,8 @@
                 padding: 10px;
             }
             .id-card {
-                padding: 10px;
-                transform: scale(0.8);
+                padding: 8px;
+                transform: scale(0.75);
             }
             .id-card.download-mode {
                 transform: none !important;
@@ -496,8 +526,8 @@
             .id-card .name { font-size: 0.95rem; }
             .id-card .handle, .id-card .id-number { font-size: 0.75rem; }
             .id-card .details p { font-size: 0.65rem; }
-            .id-card .photo { width: 80px; height: 96px; }
-            .id-card .barcode { width: 80px; height: 48px; }
+            .id-card .photo { width: 70px; height: 84px; }
+            .id-card .barcode { width: 70px; height: 42px; }
             .id-card .logo img { width: 24px; height: 24px; }
             .id-card .logo span { font-size: 0.75rem; }
             .preview-container .id-card { transform: scale(0.4); }
